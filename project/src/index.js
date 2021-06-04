@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const Setting = {
-  CARDS_COUNT: 5,
+  CARDS_COUNT: 4,
 };
 
 ReactDOM.render(
