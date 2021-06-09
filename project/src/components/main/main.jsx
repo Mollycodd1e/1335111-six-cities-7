@@ -2,10 +2,10 @@ import React from 'react';
 import Card from '../card/card.jsx';
 import Logo from '../logo/logo.jsx';
 import PropTypes from 'prop-types';
+import {HouseType} from '../../const.js';
 
 function Main(props) {
-
-  const {cardsCount} = props;
+  const {cardsCount, offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -16,14 +16,14 @@ function Main(props) {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile" xlinkHref="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" xlinkHref="#">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -39,17 +39,17 @@ function Main(props) {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Paris</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Cologne</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Brussels</span>
                 </a>
               </li>
@@ -59,12 +59,12 @@ function Main(props) {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Hamburg</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Dusseldorf</span>
                 </a>
               </li>
@@ -92,7 +92,8 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardsCount).fill().map((card) => <Card key={card} />)}
+                {new Array(cardsCount).fill().map((card, i) =>
+                  <Card key={card} offers={offers[i]}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -107,6 +108,43 @@ function Main(props) {
 
 Main.propTypes = {
   cardsCount: PropTypes.number.isRequired,
+};
+
+Main.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    bedrooms: PropTypes.number.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }),
+      name: PropTypes.string.isRequired,
+    }),
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.number),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    id: PropTypes.number.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string),
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([HouseType.string]).isRequired,
+  })),
 };
 
 export default Main;

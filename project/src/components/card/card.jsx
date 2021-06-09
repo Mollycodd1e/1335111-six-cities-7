@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {HouseType} from '../../const.js';
 
-function Card() {
+function Card(props) {
+  const {offers} = props;
 
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
-        <span>Premium</span>
+        <span>{offers.isPremium ? 'Premium' : 'Standart'}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a xlinkHref="#">
@@ -39,5 +42,42 @@ function Card() {
     </article>
   );
 }
+
+Card.propTypes = {
+  offers: PropTypes.shape({
+    bedrooms: PropTypes.number.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }),
+      name: PropTypes.string.isRequired,
+    }),
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.number),
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    id: PropTypes.number.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string),
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([HouseType.string]).isRequired,
+  }),
+};
 
 export default Card;
