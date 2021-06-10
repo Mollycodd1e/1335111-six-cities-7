@@ -1,10 +1,12 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
+import {useHistory, Link} from 'react-router-dom';
 import offersListProp from '../offersList/offersList.prop';
 
 function Favorites (props) {
 
   const {offers} = props;
+  const history = useHistory();
 
   return (
     <div className="page">
@@ -73,7 +75,7 @@ function Favorites (props) {
                           </div>
                         </div>
                         <h2 className="place-card__name">
-                          <a xlinkHref="#">{offer.title}</a>
+                          <Link xlinkHref="#" onClick={() => history.push(`/offer/:${offer.id}`)}>{offer.title}</Link>
                         </h2>
                         <p className="place-card__type">{offer.type}</p>
                       </div>

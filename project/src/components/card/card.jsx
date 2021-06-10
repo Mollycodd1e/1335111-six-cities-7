@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import offerProp from '../offersList/offerProp';
 
 function Card(props) {
   const {offers} = props;
+  const history = useHistory();
+  const [isShown, setIsShown] = useState(false);
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseEnter={() => setIsShown(isShown,true)} onMouseLeave={() => setIsShown(isShown,false)}>
       <div className="place-card__mark">
         <span>{offers.isPremium ? 'Premium' : 'Standart'}</span>
       </div>
@@ -34,7 +37,7 @@ function Card(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a xlinkHref="#">{offers.title}</a>
+          <Link to={`/offer/:${offers.id}`} onClick={() => history.push(`/offer/:${offers.id}`)}>{offers.title}</Link>
         </h2>
         <p className="place-card__type">{offers.type}</p>
       </div>
