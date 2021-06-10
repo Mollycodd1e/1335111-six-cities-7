@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from '../card/card.jsx';
 import Logo from '../logo/logo.jsx';
-import PropTypes from 'prop-types';
-import {HouseType} from '../../const.js';
+import OffersList from '../offersList/offersList.jsx';
+import offersListProp from '../offersList/offersList.prop.jsx';
+import cardProp from '../card/card.prop.jsx';
 
 function Main(props) {
   const {cardsCount, offers} = props;
@@ -92,8 +92,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardsCount).fill().map((card, i) =>
-                  <Card key={card} offers={offers[i]}/>)}
+                <OffersList cardsCount={cardsCount} offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
@@ -107,44 +106,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
-};
-
-Main.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    bedrooms: PropTypes.number.isRequired,
-    city: PropTypes.shape({
-      location: PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired,
-      }),
-      name: PropTypes.string.isRequired,
-    }),
-    description: PropTypes.string.isRequired,
-    goods: PropTypes.arrayOf(PropTypes.number),
-    host: PropTypes.shape({
-      avatarUrl: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      isPro: PropTypes.bool.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    id: PropTypes.number.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string),
-    isFavorite: PropTypes.bool.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-    maxAdults: PropTypes.number.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([HouseType.string]).isRequired,
-  })),
+  cardsCount: cardProp,
+  offers: offersListProp,
 };
 
 export default Main;
