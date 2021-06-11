@@ -8,9 +8,10 @@ import SignIn from '../sign-in/sign-in.jsx';
 import Room from '../room/room.jsx';
 import cardProp from '../card/card.prop.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
+import reviewsProp from '../offersList/reviews.prop.jsx';
 
 function App(props) {
-  const {cardsCount, offers} = props;
+  const {cardsCount, offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -25,7 +26,7 @@ function App(props) {
           <Favorites offers={offers}/>
         </Route>
         <Route exact path={AppRoute.ROOM}>
-          <Room offers={offers}/>
+          <Room offers={offers} reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundPage />
@@ -38,6 +39,7 @@ function App(props) {
 App.propTypes = {
   cardsCount: cardProp,
   offers: offersListProp,
+  reviews: reviewsProp,
 };
 
 export default App;

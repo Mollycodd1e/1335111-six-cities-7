@@ -12,7 +12,7 @@ const offers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatarUrl: 'img/1.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
@@ -46,7 +46,7 @@ const offers = [
     description: 'Amsterdam',
     goods: ['Computer', 'Camera'],
     host: {
-      avatarUrl: 'img/1.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
       isPro: true,
       name: 'Victor',
@@ -60,7 +60,7 @@ const offers = [
       longitude: 4.673877537499948,
       zoom: 8,
     },
-    maxAdults: 4,
+    maxAdults: 3,
     previewImage: 'img/apartment-02.jpg',
     price: 44,
     rating: 3.5,
@@ -80,7 +80,7 @@ const offers = [
     description: 'norm',
     goods: ['Computer', 'Umbrella'],
     host: {
-      avatarUrl: 'img/1.png',
+      avatarUrl: 'img/avatar-max.jpg',
       id: 3,
       isPro: true,
       name: 'Mario',
@@ -94,7 +94,7 @@ const offers = [
       longitude: 4.673877537499948,
       zoom: 8,
     },
-    maxAdults: 4,
+    maxAdults: 2,
     previewImage: 'img/apartment-03.jpg',
     price: 15,
     rating: 2.3,
@@ -114,7 +114,7 @@ const offers = [
     description: 'Kus',
     goods: ['TV', 'Kettel'],
     host: {
-      avatarUrl: 'img/1.png',
+      avatarUrl: 'img/avatar-max.jpg',
       id: 3,
       isPro: true,
       name: 'Asya',
