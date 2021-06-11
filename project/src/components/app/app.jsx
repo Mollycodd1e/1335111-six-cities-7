@@ -6,7 +6,6 @@ import Favorites from '../favorites/favorites.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import Room from '../room/room.jsx';
-//import PropTypes from 'prop-types';
 import cardProp from '../card/card.prop.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 
@@ -40,20 +39,5 @@ App.propTypes = {
   cardsCount: cardProp,
   offers: offersListProp,
 };
-
-//App.propTypes = {
-//  comments: PropTypes.shape({
-//    comment: PropTypes.string.isRequired,
-//    date: PropTypes.string.isRequired,
-//    id: PropTypes.number.isRequired,
-//    rating: PropTypes.number.isRequired,
-//    user: PropTypes.shape({
-//      avatarUrl: PropTypes.string.isRequired,
-//      id: PropTypes.number.isRequired,
-//      isPro: PropTypes.bool.isRequired,
-//      name: PropTypes.string.isRequired,
-//    }),
-//  }),
-//};
 
 export default App;

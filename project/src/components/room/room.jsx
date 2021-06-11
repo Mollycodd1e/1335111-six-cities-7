@@ -2,7 +2,10 @@ import React from 'react';
 import Logo from '../logo/logo.jsx';
 import Comments from '../comments/comments.jsx';
 
-function Room () {
+function Room (props) {
+
+  //const strValue = window.location.pathname;
+  //const offerID = Number(strValue.replace(/\D+/g,''));
 
   return (
     <div className="page">
@@ -59,7 +62,7 @@ function Room () {
           <div className="property__container container">
             <div className="property__wrapper">
               <div className="property__mark">
-                <span>Premium</span>
+                <span>{}</span>
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
