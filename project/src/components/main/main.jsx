@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
 import OffersList from '../offersList/offersList.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
@@ -12,14 +13,16 @@ function Main(props) {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <Logo />
+            <div className="header__left">
+              <Logo />
+            </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <a className="header__nav-link header__nav-link--profile" xlinkHref="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <Link className="header__user-name user__name" to="/favorites">Oliver.conner@gmail.com</Link>
                   </a>
                 </li>
                 <li className="header__nav-item">

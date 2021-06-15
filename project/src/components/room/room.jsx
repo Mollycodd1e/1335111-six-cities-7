@@ -9,7 +9,7 @@ function Room (props) {
   const {offers , reviews} = props;
 
   for (const offer of offers) {
-    if ((`/offer/:${offer.id}`) === window.location.pathname) {
+    if ((`/offer/${offer.id}`) === window.location.pathname) {
       return (
         <div className="page">
           <header className="header">
