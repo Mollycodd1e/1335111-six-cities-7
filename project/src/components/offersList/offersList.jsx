@@ -5,11 +5,11 @@ import cardProp from '../card/card.prop.jsx';
 
 function OffersList (props) {
   const {cardsCount, offers} = props;
-  const history = useState(false);
+  const hover = useState(false);
 
   return (
     new Array(cardsCount).fill().map((card, i) =>
-      <Card key={card} offers={offers[i]} onMouseEnter={() => history.push(true)} onMouseLeave={() => history.push(false)}/>)
+      <Card key={card} offers={offers[i]} onMouseEnter={() => hover.push(true)} onMouseLeave={() => hover.push(false)}/>)
   );
 }
 
