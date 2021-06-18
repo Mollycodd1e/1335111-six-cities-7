@@ -1,29 +1,32 @@
 import React from 'react';
-import Card from '../card/card.jsx';
+import {Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
-import PropTypes from 'prop-types';
+import OffersList from '../offersList/offersList.jsx';
+import offersListProp from '../offersList/offersList.prop.jsx';
+import cardProp from '../card/card.prop.jsx';
 
 function Main(props) {
-
-  const {cardsCount} = props;
+  const {cardsCount, offers} = props;
 
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <Logo />
+            <div className="header__left">
+              <Logo />
+            </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites" xlinkHref="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" xlinkHref="#">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -39,17 +42,17 @@ function Main(props) {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Paris</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Cologne</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Brussels</span>
                 </a>
               </li>
@@ -59,12 +62,12 @@ function Main(props) {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Hamburg</span>
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item" xlinkHref="#">
                   <span>Dusseldorf</span>
                 </a>
               </li>
@@ -92,7 +95,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardsCount).fill().map((card) => <Card key={card} />)}
+                <OffersList cardsCount={cardsCount} offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
@@ -106,7 +109,8 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  cardsCount: cardProp,
+  offers: offersListProp,
 };
 
 export default Main;

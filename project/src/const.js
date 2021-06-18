@@ -4,3 +4,10 @@ export const AppRoute = {
   ROOM: '/offer/:id',
   MAIN: '/',
 };
+
+export const HouseType = {
+  APARTMENT: 'apartment',
+  ROOM: 'room',
+  house: 'house',
+  hotel: 'hotel',
+};

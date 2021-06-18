@@ -1,7 +1,10 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
+import {useHistory} from 'react-router-dom';
 
 function SignIn () {
+
+  const history = useHistory();
 
   return (
     <div className="page page--gray page--login">
@@ -37,7 +40,7 @@ function SignIn () {
                 <label className="visually-hidden">Password</label>
                 <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit" onClick={() => history.push('/')}>Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
