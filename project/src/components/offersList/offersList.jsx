@@ -5,11 +5,11 @@ import cardProp from '../card/card.prop.jsx';
 
 function OffersList (props) {
   const {cardsCount, offers} = props;
-  const [id, setId] = useState(null);
+  const [, setId] = useState(null);
 
   return (
     new Array(cardsCount).fill().map((card, i) =>
-      <Card key={card} offers={offers[i]} onMouseEnter={() => setId(id + card.id)} onMouseLeave={() => setId(null)}/>)
+      <Card key={card} offers={offers[i]} onMouseEnter={() => setId(card.id)} onMouseLeave={() => setId(null)}/>)
   );
 }
 
