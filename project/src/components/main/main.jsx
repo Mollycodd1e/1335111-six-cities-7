@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
+import Map from '../map/map.jsx';
 import OffersList from '../offersList/offersList.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 import cardProp from '../card/card.prop.jsx';
@@ -99,7 +100,7 @@ function Main(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} />
             </div>
           </div>
         </div>
