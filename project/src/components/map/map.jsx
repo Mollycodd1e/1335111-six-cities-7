@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import useMap from './useMap.jsx';
-import offerProp from '../offersList/offerProp';
+import offersListProp from '../offersList/offersList.prop';
 
 function Map(props) {
   const {offers} = props;
@@ -12,7 +12,7 @@ function Map(props) {
 }
 
 Map.propTypes = {
-  offers: offerProp,
+  offers: offersListProp,
 };
 
 export default Map;

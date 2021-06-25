@@ -1,8 +1,10 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
-import Comments from '../comments/comments.jsx';
+import Map from '../map/map.jsx';
+import ReviewsForm from '../reviewsForm/reviewsForm.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
+import ReviewsList from '../reviews/reviewList.jsx';
 
 function Room (props) {
 
@@ -131,42 +133,15 @@ function Room (props) {
                     </div>
                   </div>
                   <section className="property__reviews reviews">
-                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                    <ul className="reviews__list">
-                      {reviews.map((review) => {
-                        if ((review.id) === (offer.id)) {
-                          return (
-                            <li className="reviews__item" key={review}>
-                              <div className="reviews__user user">
-                                <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                  <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                                </div>
-                                <span className="reviews__user-name">
-                                  {review.user.name}
-                                </span>
-                              </div>
-                              <div className="reviews__info">
-                                <div className="reviews__rating rating">
-                                  <div className="reviews__stars rating__stars">
-                                    <span style={{width: `${review.rating/5*100}%`}}></span>
-                                    <span className="visually-hidden">Rating</span>
-                                  </div>
-                                </div>
-                                <p className="reviews__text">
-                                  {review.comment}
-                                </p>
-                                <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
-                              </div>
-                            </li>);
-                        }
-                      },
-                      )}
-                    </ul>
-                    <Comments />
+                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                    <ReviewsList reviews={reviews} offer={offer}/>
+                    <ReviewsForm />
                   </section>
                 </div>
               </div>
-              <section className="property__map map"></section>
+              <section className="property__map map">
+                <Map offers={offers}/>
+              </section>
             </section>
             <div className="container">
               <section className="near-places places">
@@ -279,6 +254,5 @@ Room.propTypes = {
   offers: offersListProp,
   reviews: reviewsProp,
 };
-
 
 export default Room;
