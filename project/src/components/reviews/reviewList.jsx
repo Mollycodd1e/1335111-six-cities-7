@@ -1,7 +1,7 @@
 import React from 'react';
 import Review from './review.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
-import offersListProp from '../offersList/offersList.prop.jsx';
+import offerProp from '../offersList/offer.prop.jsx';
 
 function ReviewsList (props) {
 
@@ -11,14 +11,14 @@ function ReviewsList (props) {
     <ul className="reviews__list">
       {reviews.map((review) => {
         if ((review.id) === (offer.id)) {
-          return <Review review={review}/>;
+          return <Review key={offer} review={review}/>;
         }
       })}
     </ul>);
 }
 
 ReviewsList.propTypes = {
-  offer: offersListProp,
+  offer: offerProp,
   reviews: reviewsProp,
 };
 

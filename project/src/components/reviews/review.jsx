@@ -1,5 +1,5 @@
 import React from 'react';
-import reviewsProp from '../offersList/reviews.prop.jsx';
+import reviewProp from '../offersList/review.prop.jsx';
 
 function Review (props) {
 
@@ -32,7 +32,7 @@ function Review (props) {
 }
 
 Review.propTypes = {
-  review: reviewsProp,
+  review: reviewProp,
 };
 
 export default Review;
