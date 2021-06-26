@@ -6,10 +6,12 @@ import offersListProp from '../offersList/offersList.prop.jsx';
 function NearbyOffersList (props) {
   const {offers} = props;
 
-  return (
-    new Array(offers.length).fill().map((offer, i) =>
-      <NearbyOffer key={offer} offers={offers[i]} />)
-  );
+  if (offers) {
+    return (
+      offers.map((offer, i) =>
+        <NearbyOffer key={offer} offers={offers[i]} />)
+    );
+  }
 }
 
 NearbyOffersList.propTypes = {
