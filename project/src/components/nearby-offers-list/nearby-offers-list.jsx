@@ -1,5 +1,5 @@
 import React from 'react';
-import NearbyOffer from '../nearbyOffer/nearbyOffer.jsx';
+import NearbyOffer from '../nearby-offer/nearby-offer.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 
 

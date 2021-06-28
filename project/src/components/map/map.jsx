@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import useMap from './useMap.jsx';
+import useMap from './use-map.jsx';
 import offersListProp from '../offersList/offersList.prop';
 
 function Map(props) {

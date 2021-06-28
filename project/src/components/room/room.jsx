@@ -1,11 +1,12 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
-import NearbyOffersList from '../nearbyOffersList/nearbyOffersList.jsx';
-import ReviewsForm from '../reviewsForm/reviewsForm.jsx';
+//import NearbyOffersList from '../nearby-offers-list/nearby-offers-list.jsx';
+import OffersList from '../offersList/offers-list.jsx';
+import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
-import ReviewsList from '../reviews/reviewList.jsx';
+import ReviewsList from '../reviews/review-list.jsx';
 
 function Room (props) {
 
@@ -148,7 +149,7 @@ function Room (props) {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  <NearbyOffersList offers={offers} />
+                  <OffersList offers={offers} />
                 </div>
               </section>
             </div>
