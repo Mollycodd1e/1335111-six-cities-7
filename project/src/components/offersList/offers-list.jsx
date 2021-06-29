@@ -9,7 +9,7 @@ function OffersList (props) {
   if (offers) {
     return (
       offers.map((offer, i) =>
-        <Card key={offer.id} offers={offers[i]} onMouseEnter={() => setId(offer.id)} onMouseLeave={() => setId(null)}/>)
+        <Card key={offer.isNearby === true ? offer.id : offer.id} offers={offers[i]} onMouseEnter={() => setId(offer.id)} onMouseLeave={() => setId(null)}/>)
     );
   }
 }

@@ -33,4 +33,5 @@ export default PropTypes.shape({
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  isNearby: PropTypes.bool.isRequired,
 });
