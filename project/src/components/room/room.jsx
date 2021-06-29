@@ -1,7 +1,6 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
-//import NearbyOffersList from '../nearby-offers-list/nearby-offers-list.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
