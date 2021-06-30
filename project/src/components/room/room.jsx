@@ -10,6 +10,7 @@ import ReviewsList from '../reviews/review-list.jsx';
 function Room (props) {
 
   const {offers , reviews} = props;
+  const nearbyOffersCount = 3;
 
   for (const offer of offers) {
     if ((`/offer/${offer.id}`) === window.location.pathname) {
@@ -148,7 +149,7 @@ function Room (props) {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  <OffersList offers={offers.slice().filter((card) => card.isNearby === true)} />
+                  <OffersList offers={offers.slice(0, nearbyOffersCount)} isNearby/>
                 </div>
               </section>
             </div>

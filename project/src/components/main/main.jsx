@@ -96,7 +96,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers.slice(0, cardsCount)}/>
+                <OffersList offers={offers.slice(0, cardsCount)} isNearby={false}/>
               </div>
             </section>
             <div className="cities__right-section">
