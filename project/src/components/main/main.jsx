@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
-import OffersList from '../offersList/offersList.jsx';
+import OffersList from '../offersList/offers-list.jsx';
 import offersListProp from '../offersList/offersList.prop.jsx';
 import cardProp from '../card/card.prop.jsx';
 
@@ -96,7 +96,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList cardsCount={cardsCount} offers={offers}/>
+                <OffersList offers={offers.slice(0, cardsCount)} isNearby={false}/>
               </div>
             </section>
             <div className="cities__right-section">

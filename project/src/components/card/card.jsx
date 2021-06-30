@@ -1,16 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import offerProp from '../offersList/offerProp';
+import offerProp from '../offersList/offer.prop';
+import PropTypes from 'prop-types';
 
 function Card(props) {
-  const {offers} = props;
+  const {offers, isNearby} = props;
 
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>{offers.isPremium ? 'Premium' : 'Standart'}</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'}>
+      {isNearby ? '' :
+        <div className="place-card__mark">
+          <span>{offers.isPremium ? 'Premium' : 'Standart'}</span>
+        </div>}
+      <div className={isNearby ? 'near-places__image-wrapper place-card__image-wrapper' : 'cities__image-wrapper place-card__image-wrapper'}>
         <a xlinkHref="#">
           <img className="place-card__image" src={offers.previewImage} width="260" height="200" alt="Place image"/>
         </a>
@@ -44,6 +46,7 @@ function Card(props) {
 }
 
 Card.propTypes = {
+  isNearby: PropTypes.bool.isRequired,
   offers: offerProp,
 };
 
