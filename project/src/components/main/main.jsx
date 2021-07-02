@@ -7,12 +7,12 @@ import OffersList from '../offersList/offers-list.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import cardProp from '../card/card.prop.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
-import {CITIES, SortType} from '../../const.js';
+import {CITIES} from '../../const.js';
 import PropTypes from 'prop-types';
 import {SortList} from '../sort-list/sort-list.jsx';
 
 function Main(props) {
-  const {cardsCount, offers, activeCity} = props;
+  const {cardsCount, offers, activeCity, sortType} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -54,7 +54,7 @@ function Main(props) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-              <SortList sortType={SortType.POPULAR} />
+              <SortList sortType={sortType} />
               <div className="cities__places-list places__list tabs__content">
                 <OffersList offers={offers.slice(0, cardsCount)} isNearby={false}/>
               </div>
@@ -73,11 +73,13 @@ Main.propTypes = {
   cardsCount: cardProp,
   offers: offersListProp,
   activeCity: PropTypes.string.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   offersList: state.offersList,
+  sortType: state.sortType,
 });
 
 export {Main};

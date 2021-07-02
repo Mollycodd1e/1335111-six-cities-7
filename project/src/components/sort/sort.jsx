@@ -10,7 +10,7 @@ function Sort(props) {
   };
 
   return (
-    <li className={`places__option ${isActive ? 'places__option--active' : ''}`} tabIndex="0" onChange={handleSortChange}>{sortType}</li>
+    <li className={`places__option ${isActive ? 'places__option--active' : ''}`} tabIndex="0" onClick={handleSortChange}>{sortType}</li>
   );
 }
 

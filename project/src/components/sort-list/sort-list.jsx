@@ -16,10 +16,6 @@ function SortList(props) {
     setIsSortListOpen((prevState) => !prevState);
   };
 
-  const handleSortChange = (type) => {
-    onSortChange(type);
-  };
-
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -31,7 +27,7 @@ function SortList(props) {
       </span>
       <ul className={`places__options places__options--custom ${isSortListOpen ? 'places__options--opened' : ''}`}>
         {Object.values(SortType).map((sort) =>
-          <Sort key={sort} isActive={sortType === sort} sortType={sort} onSortChange={handleSortChange}/>,
+          <Sort key={sort} isActive={sortType === sort} sortType={sort} onSortChange={onSortChange}/>,
         )}
       </ul>
     </form>
