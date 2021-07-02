@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import useMap from './use-map.jsx';
-import offersListProp from '../offersList/offersList.prop';
+import offersListProp from '../offersList/offers-list.prop';
 
 function Map(props) {
   const {offers} = props;

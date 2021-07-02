@@ -3,7 +3,7 @@ import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
-import offersListProp from '../offersList/offersList.prop.jsx';
+import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 

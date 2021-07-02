@@ -1,6 +1,6 @@
 import {ActionType} from './action.js';
 import offers from '../mocks/offers.js';
-import {CITIES} from '../const.js';
+import {CITIES, SortType} from '../const.js';
 
 const getOffersListByCity = (offersList, activeCity) =>
   offersList.filter(({city}) => city.name  === activeCity);
@@ -8,6 +8,7 @@ const getOffersListByCity = (offersList, activeCity) =>
 const initialState = {
   activeCity: CITIES[0],
   offersList: getOffersListByCity(offers, CITIES[0]),
+  sortType: SortType.POPULAR,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         activeCity: action.payload,
         offersList: getOffersListByCity(offers, action.payload),
+      };
+    case ActionType.CHANGE_SORT_TYPE:
+      return {
+        ...state,
+        sortType: action.payload,
       };
     default:
       return state;

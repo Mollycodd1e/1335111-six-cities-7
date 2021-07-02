@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Card from '../card/card.jsx';
-import offersListProp from './offersList.prop.jsx';
+import offersListProp from './offers-list.prop.jsx';
 
 function OffersList (props) {
   const {offers, isNearby} = props;
