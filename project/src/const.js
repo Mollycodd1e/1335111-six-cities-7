@@ -11,3 +11,12 @@ export const HouseType = {
   house: 'house',
   hotel: 'hotel',
 };
+
+export const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
