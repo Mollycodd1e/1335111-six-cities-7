@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../logo/logo.jsx';
 import {Link} from 'react-router-dom';
-import offersListProp from '../offersList/offersList.prop';
+import offersListProp from '../offersList/offers-list.prop';
 
 function Favorites (props) {
 
