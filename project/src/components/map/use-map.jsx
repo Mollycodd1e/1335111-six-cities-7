@@ -15,6 +15,12 @@ function useMap(mapRef, offers) {
         iconAnchor: [15, 30],
       });
 
+      const activeIcon = leaflet.icon({
+        iconUrl: 'img/pin-active.svg',
+        iconSize: [27, 39],
+        iconAnchor: [15, 30],
+      });
+
       const zoom = 12;
 
       const instance = leaflet.map('map', {
@@ -34,13 +40,14 @@ function useMap(mapRef, offers) {
 
       offers.map((offer) => {
         leaflet
-          .marker([offer.location.latitude, offer.location.longitude], {icon: defaultIcon})
+          .marker([offer.location.latitude, offer.location.longitude], {icon: (offer) ? defaultIcon : activeIcon})
           .addTo(instance);
       });
 
       setMap(instance);
     }
   }, [mapRef, map]);
+
 
   return map;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {useState} from 'react';
 import PropTypes from 'prop-types';
 import Sort from '../sort/sort.jsx';
 import {SortType} from '../../const.js';
 import {ActionCreator} from '../../store/action.js';
-import {connect} from 'react-redux';
 
 function SortList(props) {
 
