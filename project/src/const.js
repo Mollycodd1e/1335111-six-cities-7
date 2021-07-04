@@ -28,6 +28,21 @@ export const SortType = {
   TOP_RATED: 'Top rated first',
 };
 
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  OFFERS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+export const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;
+
 export const getSortedOffers = (sortType, offers) => {
   switch (sortType) {
     case SortType.PRICE_LOW:

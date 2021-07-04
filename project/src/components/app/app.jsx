@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
+import {AppRoute, isCheckedAuth} from '../../const.js';
 import Main from '../main/main.jsx';
 import Favorites from '../favorites/favorites.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
@@ -9,9 +10,19 @@ import Room from '../room/room.jsx';
 import cardProp from '../card/card.prop.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import PropTypes from 'prop-types';
 
 function App(props) {
-  const {cardsCount, offers, reviews} = props;
+  //const {cardsCount, offers, reviews} = props;
+
+  const {cardsCount, offers, reviews, authorizationStatus, isDataLoaded} = props;
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -37,9 +48,17 @@ function App(props) {
 }
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
   cardsCount: cardProp,
   offers: offersListProp,
   reviews: reviewsProp,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  isDataLoaded: state.isDataLoaded,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
