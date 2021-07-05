@@ -1,9 +1,6 @@
 import {ActionType} from './action.js';
 import offers from '../mocks/offers.js';
-import {CITIES, SortType, AuthorizationStatus} from '../const.js';
-
-const getOffersListByCity = (offersList, activeCity) =>
-  offersList.filter(({city}) => city.name  === activeCity);
+import {CITIES, SortType, AuthorizationStatus, getOffersListByCity} from '../const.js';
 
 const initialState = {
   activeCity: CITIES[0],

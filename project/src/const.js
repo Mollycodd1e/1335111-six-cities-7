@@ -43,6 +43,9 @@ export const APIRoute = {
 export const isCheckedAuth = (authorizationStatus) =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;
 
+export const getOffersListByCity = (offersList, activeCity) =>
+  offersList.filter(({city}) => city.name  === activeCity);
+
 export const getSortedOffers = (sortType, offers) => {
   switch (sortType) {
     case SortType.PRICE_LOW:
