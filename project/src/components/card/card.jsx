@@ -9,8 +9,8 @@ function Card(props) {
   return (
     <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'}>
       {isNearby ? '' :
-        <div className="place-card__mark">
-          <span>{offers.isPremium ? 'Premium' : 'Standart'}</span>
+        <div className={offers.isPremium ? 'place-card__mark' : 'visually-hidden'}>
+          <span>Premium</span>
         </div>}
       <div className={isNearby ? 'near-places__image-wrapper place-card__image-wrapper' : 'cities__image-wrapper place-card__image-wrapper'}>
         <a xlinkHref="#">

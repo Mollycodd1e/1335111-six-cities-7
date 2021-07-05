@@ -7,16 +7,14 @@ import Favorites from '../favorites/favorites.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import Room from '../room/room.jsx';
-import cardProp from '../card/card.prop.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import PropTypes from 'prop-types';
 
 function App(props) {
-  //const {cardsCount, offers, reviews} = props;
 
-  const {cardsCount, offers, reviews, authorizationStatus, isDataLoaded} = props;
+  const {offers, reviews, authorizationStatus, isDataLoaded} = props;
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
@@ -28,7 +26,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main cardsCount={cardsCount} offers={offers}/>
+          <Main offers={offers}/>
         </Route>
         <Route exact path={AppRoute.SIGNIN}>
           <SignIn />
@@ -50,7 +48,6 @@ function App(props) {
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
-  cardsCount: cardProp,
   offers: offersListProp,
   reviews: reviewsProp,
 };

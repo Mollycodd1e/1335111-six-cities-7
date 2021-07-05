@@ -1,9 +1,13 @@
-import {ActionCreator} from './action';
-import {AuthorizationStatus, APIRoute} from '../const';
+import {ActionCreator} from './action.js';
+import {AuthorizationStatus, APIRoute} from '../const.js';
+import {adaptOffersToClient} from '../adapter.js';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
+    .then(({data}) => {
+      const offers = data.map((offer) => adaptOffersToClient(offer));
+      return offers;
+    }).then((offers) => dispatch(ActionCreator.loadOffers(offers)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
