@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Logo from '../logo/logo.jsx';
@@ -13,7 +13,11 @@ import {SortList} from '../sort-list/sort-list.jsx';
 function Main(props) {
   const {offers, activeCity, sortType} = props;
 
+  const [activeOffer, setActiveOffer] = useState();
   //const sortedOffers = getSortedOffers(sortType, offers);
+  const handleOfferHover = (offer) => {
+    setActiveOffer(offer);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -57,11 +61,11 @@ function Main(props) {
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <SortList sortType={sortType} />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} isNearby={false}/>
+                <OffersList offers={offers} isNearby={false} onOfferHover={handleOfferHover}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} activeCity={activeCity}/>
+              <Map offers={offers} activeCity={activeCity} activeOffer={activeOffer}/>
             </div>
           </div>
         </div>

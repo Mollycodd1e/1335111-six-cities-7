@@ -2,10 +2,11 @@ import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-function useMap(mapRef, offers) {
+function useMap(mapRef, offers, activeOffer) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
+
     if (mapRef.current !== null && map === null) {
       const town = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
@@ -40,14 +41,14 @@ function useMap(mapRef, offers) {
 
       offers.map((offer) => {
         leaflet
-          .marker([offer.location.latitude, offer.location.longitude], {icon: (offer) ? defaultIcon : activeIcon})
+          .marker([offer.location.latitude, offer.location.longitude], {icon: (activeOffer === offer) ? activeIcon : defaultIcon})
           .addTo(instance);
       });
 
       setMap(instance);
+
     }
   }, [mapRef, map]);
-
 
   return map;
 }

@@ -4,10 +4,22 @@ import offerProp from '../offersList/offer.prop';
 import PropTypes from 'prop-types';
 
 function Card(props) {
-  const {offers, isNearby} = props;
+  const {offers, isNearby, onOfferHover} = props;
+
+  const handleMouseEnter = () => {
+    if (onOfferHover) {
+      onOfferHover(offers);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (onOfferHover) {
+      onOfferHover(null);
+    }
+  };
 
   return (
-    <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'}>
+    <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
       {isNearby ? '' :
         <div className={offers.isPremium ? 'place-card__mark' : 'visually-hidden'}>
           <span>Premium</span>
@@ -48,6 +60,7 @@ function Card(props) {
 Card.propTypes = {
   isNearby: PropTypes.bool.isRequired,
   offers: offerProp,
+  onOfferHover: PropTypes.func.isRequired,
 };
 
 export default Card;
