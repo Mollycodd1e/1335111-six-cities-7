@@ -6,7 +6,7 @@ import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
-import {CITIES, getSortedOffers, getOffersListByCity} from '../../const.js';
+import {getSortedOffers, getOffersListByCity} from '../../const.js';
 import PropTypes from 'prop-types';
 import {SortList} from '../sort-list/sort-list.jsx';
 
@@ -47,7 +47,7 @@ function Main(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList activeCity={CITIES[0]} />
+            <CitiesList activeCity={activeCity} />
           </section>
         </div>
         <div className="cities">
@@ -61,7 +61,7 @@ function Main(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} activeCity={CITIES[0]}/>
+              <Map offers={offers} activeCity={activeCity}/>
             </div>
           </div>
         </div>
