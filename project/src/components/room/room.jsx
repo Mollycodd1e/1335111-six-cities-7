@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
@@ -163,4 +164,9 @@ Room.propTypes = {
   reviews: reviewsProp,
 };
 
-export default Room;
+const mapStateToProps = ({offers}) => ({
+  offers: offers,
+});
+
+export {Room};
+export default connect(mapStateToProps)(Room);

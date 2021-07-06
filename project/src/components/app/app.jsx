@@ -11,6 +11,7 @@ import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import PropTypes from 'prop-types';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 function App(props) {
 
@@ -31,9 +32,8 @@ function App(props) {
         <Route exact path={AppRoute.SIGNIN}>
           <SignIn />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={offers}/>
-        </Route>
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites offers={offers}/>}>
+        </PrivateRoute>
         <Route exact path={AppRoute.ROOM}>
           <Room offers={offers} reviews={reviews}/>
         </Route>

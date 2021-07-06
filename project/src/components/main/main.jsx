@@ -61,7 +61,7 @@ function Main(props) {
               </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers}/>
+              <Map offers={offers} activeCity={CITIES[0]}/>
             </div>
           </div>
         </div>

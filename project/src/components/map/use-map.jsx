@@ -7,7 +7,7 @@ function useMap(mapRef, offers) {
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      const town = [52.38333, 4.9];
+      const town = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
       const defaultIcon = leaflet.icon({
         iconUrl: 'img/pin.svg',
