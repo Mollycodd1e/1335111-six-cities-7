@@ -21,7 +21,7 @@ function useMap(mapRef, offers) {
         iconAnchor: [15, 30],
       });
 
-      const zoom = 12;
+      const zoom = offers[0].city.location.zoom;
 
       const instance = leaflet.map('map', {
         center: town,

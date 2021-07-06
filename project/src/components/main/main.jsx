@@ -6,14 +6,14 @@ import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
-import {getSortedOffers, getOffersListByCity} from '../../const.js';
+import {getOffersListByCity} from '../../const.js';
 import PropTypes from 'prop-types';
 import {SortList} from '../sort-list/sort-list.jsx';
 
 function Main(props) {
   const {offers, activeCity, sortType} = props;
 
-  const sortedOffers = getSortedOffers(sortType, offers);
+  //const sortedOffers = getSortedOffers(sortType, offers);
 
   return (
     <div className="page page--gray page--main">
@@ -57,7 +57,7 @@ function Main(props) {
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <SortList sortType={sortType} />
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={sortedOffers} isNearby={false}/>
+                <OffersList offers={offers} isNearby={false}/>
               </div>
             </section>
             <div className="cities__right-section">
