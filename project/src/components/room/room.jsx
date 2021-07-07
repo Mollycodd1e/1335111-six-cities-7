@@ -144,7 +144,7 @@ function Room (props) {
                 </div>
               </div>
               <section className="property__map map">
-                <Map offers={offers}/>
+                <Map offers={offers.slice(0, nearbyOffersCount)}/>
               </section>
             </section>
             <div className="container">
