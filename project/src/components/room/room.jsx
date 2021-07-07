@@ -7,6 +7,7 @@ import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
+import {getOffersListByCity} from '../../const.js';
 
 function Room (props) {
 
@@ -164,8 +165,9 @@ Room.propTypes = {
   reviews: reviewsProp,
 };
 
-const mapStateToProps = ({offers}) => ({
-  offers: offers,
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+  offers: getOffersListByCity(state.offers, state.activeCity),
 });
 
 export {Room};

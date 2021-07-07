@@ -48,7 +48,7 @@ function useMap(mapRef, offers, activeOffer) {
       setMap(instance);
 
     }
-  }, [mapRef, map]);
+  }, [mapRef, map, offers, activeOffer]);
 
   return map;
 }

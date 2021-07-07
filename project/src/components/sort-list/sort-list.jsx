@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {useState} from 'react';
 import PropTypes from 'prop-types';
 import Sort from '../sort/sort.jsx';
 import {SortType} from '../../const.js';

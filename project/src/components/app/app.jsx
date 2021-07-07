@@ -27,7 +27,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main offers={offers}/>
+          <Main />
         </Route>
         <Route exact path={AppRoute.SIGNIN}>
           <SignIn />
@@ -35,7 +35,7 @@ function App(props) {
         <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites offers={offers}/>}>
         </PrivateRoute>
         <Route exact path={AppRoute.ROOM}>
-          <Room offers={offers} reviews={reviews}/>
+          <Room reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundPage />

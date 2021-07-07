@@ -5,7 +5,8 @@ function Sort(props) {
 
   const {sortType, isActive, onSortChange} = props;
 
-  const handleSortChange = () => {
+  const handleSortChange = (evt) => {
+    evt.preventDefault();
     onSortChange(sortType);
   };
 
