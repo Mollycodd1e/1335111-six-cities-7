@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Card from '../card/card.jsx';
-import offersListProp from './offersList.prop.jsx';
+import offersListProp from './offers-list.prop.jsx';
 
 function OffersList (props) {
-  const {offers, isNearby} = props;
-  const [, setId] = useState(null);
+  const {offers, isNearby, onOfferHover} = props;
 
   if (offers) {
     return (
       offers.map((offer, i) =>
-        <Card key={isNearby ? offer.id : offer.id} offers={offers[i]} isNearby={isNearby} onMouseEnter={() => setId(offer.id)} onMouseLeave={() => setId(null)}/>)
+        <Card key={isNearby ? offer.id : offer.id} offers={offers[i]} isNearby={isNearby} onOfferHover={onOfferHover}/>)
     );
   }
 }

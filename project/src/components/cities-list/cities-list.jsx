@@ -18,8 +18,8 @@ function CitiesList(props) {
 }
 
 CitiesList.propTypes = {
-  onCityChange: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

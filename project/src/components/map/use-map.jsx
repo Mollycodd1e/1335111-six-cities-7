@@ -2,12 +2,12 @@ import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-function useMap(mapRef, offers) {
+function useMap(mapRef, offers, activeOffer) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      const town = [52.38333, 4.9];
+      const town = [offers[0].city.location.latitude, offers[0].city.location.longitude];
 
       const defaultIcon = leaflet.icon({
         iconUrl: 'img/pin.svg',
@@ -15,7 +15,7 @@ function useMap(mapRef, offers) {
         iconAnchor: [15, 30],
       });
 
-      const zoom = 12;
+      const zoom = offers[0].city.location.zoom;
 
       const instance = leaflet.map('map', {
         center: town,
@@ -39,8 +39,34 @@ function useMap(mapRef, offers) {
       });
 
       setMap(instance);
+
+    } else {
+      const anotherTown = [offers[0].city.location.latitude, offers[0].city.location.longitude];
+      const newZoom = offers[0].city.location.zoom;
+
+      const defaultIcon = leaflet.icon({
+        iconUrl: 'img/pin.svg',
+        iconSize: [27, 39],
+        iconAnchor: [15, 30],
+      });
+
+      const activeIcon = leaflet.icon({
+        iconUrl: 'img/pin-active.svg',
+        iconSize: [27, 39],
+        iconAnchor: [15, 30],
+      });
+
+      map.setView(anotherTown, newZoom);
+
+      offers.map((offer) => {
+        leaflet
+          .marker([offer.location.latitude, offer.location.longitude], {icon: (activeOffer === offer) ? activeIcon : defaultIcon})
+          .addTo(map);
+      });
+
+      setMap(map);
     }
-  }, [mapRef, map]);
+  }, [mapRef, map, offers, activeOffer]);
 
   return map;
 }

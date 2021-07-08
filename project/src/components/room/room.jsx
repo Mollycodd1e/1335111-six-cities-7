@@ -1,11 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Logo from '../logo/logo.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
-import offersListProp from '../offersList/offersList.prop.jsx';
+import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
+import {getOffersListByCity} from '../../const.js';
 
 function Room (props) {
 
@@ -142,7 +144,7 @@ function Room (props) {
                 </div>
               </div>
               <section className="property__map map">
-                <Map offers={offers}/>
+                <Map offers={offers.slice(0, nearbyOffersCount)}/>
               </section>
             </section>
             <div className="container">
@@ -163,4 +165,10 @@ Room.propTypes = {
   reviews: reviewsProp,
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+  offers: getOffersListByCity(state.offers, state.activeCity),
+});
+
+export {Room};
+export default connect(mapStateToProps)(Room);
