@@ -38,6 +38,8 @@ export const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  ROOM: '/hotel/id',
+  REVIEWS: '/comments',
 };
 
 export const isCheckedAuth = (authorizationStatus) =>

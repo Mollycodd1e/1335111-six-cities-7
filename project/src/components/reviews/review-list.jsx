@@ -9,11 +9,9 @@ function ReviewsList (props) {
 
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => {
-        if ((review.id) === (offer.id)) {
-          return <Review key={offer} review={review}/>;
-        }
-      })}
+      {reviews.map((review) =>
+        <Review key={offer} review={review}/>,
+      )}
     </ul>);
 }
 
