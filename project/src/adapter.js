@@ -26,3 +26,23 @@ export const adaptOffersToClient = (offers) => {
 
   return adaptedOffers;
 };
+
+export const adaptReviewsToClient = (reviews) => {
+  const adaptedReviews = Object.assign(
+    {},
+    reviews,
+    {
+      user: {
+        avatarUrl: reviews.user.avatar_url,
+        isPro: reviews.user.is_pro,
+        id: reviews.user.id,
+        name: reviews.user.name,
+      },
+    },
+  );
+
+  delete adaptedReviews.user.avatar_url;
+  delete adaptedReviews.user.is_pro;
+
+  return adaptedReviews;
+};
