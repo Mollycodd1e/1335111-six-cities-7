@@ -14,12 +14,12 @@ import PropTypes from 'prop-types';
 
 function Room (props) {
 
-  const {offers, reviews, loadReviews, loadRoom} = props;
+  const {offers, reviews, loadReviews, loadRoom, room} = props;
   const {id} = useParams();
 
   const nearbyOffersCount = 3;
-  const maxVisiblePhotos = 6;
-
+  //const maxVisiblePhotos = 6;
+  //const gg = room;
   const offer = offers.find((item) => item.id === Number(id));
 
   useEffect(() => {
@@ -34,10 +34,11 @@ function Room (props) {
     <div className="page">
       <Header />
       <main className="page__main page__main--property">
+
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, maxVisiblePhotos).map((image) => (
+              {offer.images.map((image) => (
                 <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Photo studio"/>
                 </div>
@@ -63,24 +64,24 @@ function Room (props) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${offer.rating/5*100}%`}}></span>
+                  <span style={{width: `${room.rating/5*100}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offer.rating}</span>
+                <span className="property__rating-value rating__value">{room.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offer.type}
+                  {room.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offer.bedrooms} Bedrooms
+                  {room.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.maxAdults} adults
+                  Max {room.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{offer.price}</b>
+                <b className="property__price-value">&euro;{room.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -142,6 +143,7 @@ Room.propTypes = {
   reviews: reviewsProp,
   loadReviews: PropTypes.func.isRequired,
   loadRoom: PropTypes.func.isRequired,
+  room: offersListProp,
 };
 
 const mapStateToProps = (state) => ({
@@ -151,10 +153,10 @@ const mapStateToProps = (state) => ({
   room: state.room,
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps = ({
   loadReviews: fetchReviews,
   loadRoom: fetchRoom,
-};
+});
 
 
 export {Room};

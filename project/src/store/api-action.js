@@ -1,6 +1,6 @@
 import {ActionCreator} from './action.js';
 import {AuthorizationStatus, APIRoute} from '../const.js';
-import {adaptOffersToClient, adaptReviewsToClient} from '../adapter.js';
+import {adaptOffersToClient, adaptReviewsToClient, adaptOfferToClient} from '../adapter.js';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
@@ -13,9 +13,9 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
 export const fetchRoom = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.ROOM}/${id}`)
     .then(({data}) => {
-      const room = data.adaptOffersToClient();
+      const room = adaptOfferToClient(data);
       return room;
-    }).then((room) => dispatch(ActionCreator.loadOffers(room)))
+    }).then((room) => dispatch(ActionCreator.loadRoom(room)))
 );
 
 export const fetchReviews = (id) => (dispatch, _getState, api) => (
