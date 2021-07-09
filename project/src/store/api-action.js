@@ -10,6 +10,14 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     }).then((offers) => dispatch(ActionCreator.loadOffers(offers)))
 );
 
+export const fetchRoom = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.ROOM}/${id}`)
+    .then(({data}) => {
+      const room = data.adaptOffersToClient();
+      return room;
+    }).then((room) => dispatch(ActionCreator.loadOffers(room)))
+);
+
 export const fetchReviews = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${id}`)
     .then(({data}) => {

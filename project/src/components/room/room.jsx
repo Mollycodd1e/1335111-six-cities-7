@@ -9,12 +9,12 @@ import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 import {getOffersListByCity} from '../../const.js';
-import {fetchReviews} from '../../store/api-action.js';
+import {fetchReviews, fetchRoom} from '../../store/api-action.js';
 import PropTypes from 'prop-types';
 
 function Room (props) {
 
-  const {offers, reviews, loadReviews} = props;
+  const {offers, reviews, loadReviews, loadRoom} = props;
   const {id} = useParams();
 
   const nearbyOffersCount = 3;
@@ -24,6 +24,7 @@ function Room (props) {
 
   useEffect(() => {
     loadReviews(id);
+    loadRoom(id);
   }, [id, loadReviews]);
 
   //for (const offer of offers) {
@@ -140,16 +141,19 @@ Room.propTypes = {
   offers: offersListProp,
   reviews: reviewsProp,
   loadReviews: PropTypes.func.isRequired,
+  loadRoom: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   offers: getOffersListByCity(state.offers, state.activeCity),
   reviews: state.reviews,
+  room: state.room,
 });
 
 const mapDispatchToProps = {
   loadReviews: fetchReviews,
+  loadRoom: fetchRoom,
 };
 
 
