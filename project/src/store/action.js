@@ -4,6 +4,7 @@ export const ActionType = {
   LOAD_OFFERS: 'offers/loadOffers',
   LOAD_ROOM: 'room/loadRoom',
   LOAD_REVIEWS: 'room/loadReviews',
+  LOAD_OFFERS_NEARBY: 'room/loadOffersNearby',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
 };
@@ -32,6 +33,11 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+
+  loadOffersNearby: (offersNearby) => ({
+    type: ActionType.LOAD_OFFERS_NEARBY,
+    payload: offersNearby,
   }),
 
   requireAuthorization: (status) => ({

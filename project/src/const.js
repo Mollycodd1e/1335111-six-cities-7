@@ -40,6 +40,7 @@ export const APIRoute = {
   LOGOUT: '/logout',
   ROOM: '/hotels',
   REVIEWS: '/comments',
+  OFFERS_NEARBY: '/nearby',
 };
 
 export const isCheckedAuth = (authorizationStatus) =>

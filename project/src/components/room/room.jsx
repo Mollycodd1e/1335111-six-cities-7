@@ -9,36 +9,42 @@ import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 import {getOffersListByCity} from '../../const.js';
-import {fetchReviews, fetchRoom} from '../../store/api-action.js';
+import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import PropTypes from 'prop-types';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import {AuthorizationStatus} from '../../const.js';
+//import offerProp from '../offersList/offer.prop.jsx';
 
 function Room (props) {
 
-  const {offers, reviews, loadReviews, loadRoom, room} = props;
+  const {offers, reviews, offersNearby , loadData, room, isRoomDataLoaded, authorizationStatus} = props;
   const {id} = useParams();
 
+  useEffect(() => {
+    loadData(id);
+  }, [id]);
+
+  if (!isRoomDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   const nearbyOffersCount = 3;
-  //const maxVisiblePhotos = 6;
-  //const gg = room;
+  const maxVisiblePhotos = 6;
   const offer = offers.find((item) => item.id === Number(id));
 
-  useEffect(() => {
-    loadReviews(id);
-    loadRoom(id);
-  }, [id, loadReviews]);
-
   //for (const offer of offers) {
-
   //if ((`/offer/${offer.id}`) === window.location.pathname) {
   return (
     <div className="page">
       <Header />
-      <main className="page__main page__main--property">
 
+      <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.map((image) => (
+              {offer.images.slice(0, maxVisiblePhotos).map((image) => (
                 <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Photo studio"/>
                 </div>
@@ -47,13 +53,13 @@ function Room (props) {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium ?
+              {room.isPremium ?
                 <div className="property__mark">
                   <span>Premium</span>
                 </div> : ''}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offer.title}
+                  {room.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -116,8 +122,9 @@ function Room (props) {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews} offer={offer}/>
-                <ReviewsForm />
+                <ReviewsList reviews={reviews}/>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <ReviewsForm roomId={room.id}/> : ''}
               </section>
             </div>
           </div>
@@ -129,7 +136,7 @@ function Room (props) {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers.slice(0, nearbyOffersCount)} isNearby/>
+              <OffersList offers={offersNearby} isNearby/>
             </div>
           </section>
         </div>
@@ -141,9 +148,11 @@ function Room (props) {
 Room.propTypes = {
   offers: offersListProp,
   reviews: reviewsProp,
-  loadReviews: PropTypes.func.isRequired,
-  loadRoom: PropTypes.func.isRequired,
-  room: offersListProp,
+  loadData: PropTypes.func.isRequired,
+  room: PropTypes.object.isRequired,
+  offersNearby: offersListProp,
+  isRoomDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -151,11 +160,17 @@ const mapStateToProps = (state) => ({
   offers: getOffersListByCity(state.offers, state.activeCity),
   reviews: state.reviews,
   room: state.room,
+  offersNearby: state.offersNearby,
+  isRoomDataLoaded: state.isRoomDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
-const mapDispatchToProps = ({
-  loadReviews: fetchReviews,
-  loadRoom: fetchRoom,
+const mapDispatchToProps = (dispatch) => ({
+  loadData(id) {
+    dispatch(fetchRoom(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchOffersNearby(id));
+  },
 });
 
 
