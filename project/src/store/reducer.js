@@ -5,6 +5,10 @@ const initialState = {
   activeCity: CITIES[0],
   sortType: SortType.POPULAR,
   offers: [],
+  room: {},
+  offersNearby: [],
+  reviews: [],
+  isRoomDataLoaded: false,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
@@ -25,6 +29,24 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+        isDataLoaded: true,
+      };
+    case ActionType.LOAD_ROOM:
+      return {
+        ...state,
+        room: action.payload,
+        isRoomDataLoaded: true,
+      };
+    case ActionType.LOAD_OFFERS_NEARBY:
+      return {
+        ...state,
+        offersNearby: action.payload,
+        isDataLoaded: true,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
         isDataLoaded: true,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
