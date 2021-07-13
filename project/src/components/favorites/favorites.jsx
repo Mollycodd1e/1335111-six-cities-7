@@ -4,6 +4,7 @@ import Logo from '../logo/logo.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import offersListProp from '../offersList/offers-list.prop';
+import {AppRoute} from '../../const.js';
 
 function Favorites (props) {
 
@@ -49,7 +50,7 @@ function Favorites (props) {
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <a className="locations__item-link" xlinkHref="#">
-                        {}<span>Amsterdam</span>
+                        <span>Amsterdam</span>
                       </a>
                     </div>
                   </div>
@@ -94,9 +95,9 @@ function Favorites (props) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" xlinkHref="main.html">
+        <Link className="footer__logo-link" to={AppRoute.MAIN}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );
