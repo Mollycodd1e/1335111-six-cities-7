@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import WithAuth from '../with-auth/with-auth.jsx';
 import WithoutAuth from '../without-auth/withoutAuth.jsx';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus} from '../../const.js';
 
 function Header(props) {
 

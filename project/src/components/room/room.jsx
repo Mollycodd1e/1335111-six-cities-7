@@ -8,12 +8,11 @@ import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
-import {getOffersListByCity} from '../../const.js';
+import {AuthorizationStatus} from '../../const.js';
+import {getOffersListByCity} from '../../utils.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
-import {AuthorizationStatus} from '../../const.js';
-//import offerProp from '../offersList/offer.prop.jsx';
 
 function Room (props) {
 
@@ -32,10 +31,7 @@ function Room (props) {
 
   const nearbyOffersCount = 3;
   const maxVisiblePhotos = 6;
-  const offer = offers.find((item) => item.id === Number(id));
 
-  //for (const offer of offers) {
-  //if ((`/offer/${offer.id}`) === window.location.pathname) {
   return (
     <div className="page">
       <Header />
@@ -44,7 +40,7 @@ function Room (props) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, maxVisiblePhotos).map((image) => (
+              {room.images.slice(0, maxVisiblePhotos).map((image) => (
                 <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Photo studio"/>
                 </div>
@@ -93,7 +89,7 @@ function Room (props) {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods.map((item) =>
+                  {room.goods.map((item) =>
                     <li className="property__inside-item" key={item}>{item}</li>,
                   )}
                 </ul>
@@ -102,18 +98,18 @@ function Room (props) {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+                    <img className="property__avatar user__avatar" src={room.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {offer.host.name}
+                    {room.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.host.isPro ? 'Pro' : ''}
+                    {room.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.description}
+                    {room.description}
                   </p>
                   <p className="property__text">
                     An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
@@ -142,8 +138,6 @@ function Room (props) {
         </div>
       </main>
     </div>);}
-//  );}}
-//}
 
 Room.propTypes = {
   offers: offersListProp,

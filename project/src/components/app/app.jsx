@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute, isCheckedAuth} from '../../const.js';
+import {AppRoute} from '../../const.js';
+import {isCheckedAuth} from '../../utils.js';
 import Main from '../main/main.jsx';
 import Favorites from '../favorites/favorites.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';

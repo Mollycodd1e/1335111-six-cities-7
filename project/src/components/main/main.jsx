@@ -5,7 +5,7 @@ import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import offersListProp from '../offersList/offers-list.prop.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
-import {getOffersListByCity} from '../../const.js';
+import {getOffersListByCity} from '../../utils.js';
 import PropTypes from 'prop-types';
 import {SortList} from '../sort-list/sort-list.jsx';
 

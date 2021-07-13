@@ -12,8 +12,8 @@ function ReviewForm(props) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
     sendReview({id: roomId, comment: review, rating: Number(rating)});
-    //setRating(null);
-    //setReview('');
+    setRating(null);
+    setReview('');
   };
 
   return (

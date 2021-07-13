@@ -6,7 +6,6 @@ import {createAPI} from './components/services/api.js';
 import {ActionCreator} from './store/action.js';
 import {AuthorizationStatus} from './const.js';
 import App from './components/app/app';
-import reviews from './mocks/reviews.js';
 import {reducer} from './store/reducer.js';
 import thunk from 'redux-thunk';
 import {checkAuth, fetchOffersList} from './store/api-action.js';
@@ -24,7 +23,7 @@ store.dispatch(fetchOffersList());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App reviews={reviews}/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
