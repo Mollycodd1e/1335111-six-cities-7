@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
-//import {connect} from 'react-redux';
 import {useSelector, useDispatch} from 'react-redux';
-//import PropTypes from 'prop-types';
 import Sort from '../sort/sort.jsx';
 import {SortType} from '../../const.js';
-//import {ActionCreator} from '../../store/action.js';
-import { getSortType } from '../../store/changer/selectors.js';
+import {getSortType} from '../../store/changer/selectors.js';
 import {changeSortType} from '../../store/action.js';
 
 function SortList() {
 
-  //const {sortType, onSortChange} = props;
   const dispatch = useDispatch();
   const sortType = useSelector(getSortType);
   const onSortChange = dispatch(changeSortType(sortType));
@@ -39,20 +35,4 @@ function SortList() {
   );
 }
 
-//SortList.propTypes = {
-//  sortType: PropTypes.string.isRequired,
-//  onSortChange: PropTypes.func.isRequired,
-//};
-
-//const mapStateToProps = (state) => ({
-//  sortType: state.sortType,
-//});
-//
-//const mapDispatchToProps = (dispatch) => ({
-//  onSortChange(sortType) {
-//    dispatch(ActionCreator.changeSortType(sortType));
-//  },
-//});
-
 export default SortList;
-//export default connect(mapStateToProps, mapDispatchToProps)(SortList);

@@ -4,23 +4,20 @@ import {useSelector} from 'react-redux';
 import Header from '../header/header.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
-//import offersListProp from '../offersList/offers-list.prop.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import {getOffersListByCity} from '../../utils.js';
-//import PropTypes from 'prop-types';
 import SortList from '../sort-list/sort-list.jsx';
-import { getActiveCity, getSortType } from '../../store/changer/selectors.js';
-import { getOffers } from '../../store/data/selectors.js';
+import {getActiveCity, getSortType} from '../../store/changer/selectors.js';
+import {getOffers} from '../../store/data/selectors.js';
 
 function Main() {
-  //const {offers, activeCity, sortType} = props;
   const activeCity = useSelector(getActiveCity);
   const offers = useSelector(getOffers);
   const offersListByCity = getOffersListByCity(offers, activeCity);
   const sortType = useSelector(getSortType);
 
   const [activeOffer, setActiveOffer] = useState();
-  //const sortedOffers = getSortedOffers(sortType, offers);
+
   const handleOfferHover = (offer) => {
     setActiveOffer(offer);
   };
@@ -56,17 +53,4 @@ function Main() {
   );
 }
 
-//Main.propTypes = {
-//  offers: offersListProp,
-//  activeCity: PropTypes.string.isRequired,
-//  sortType: PropTypes.string.isRequired,
-//};
-
-//const mapStateToProps = (state) => ({
-//  activeCity: state.activeCity,
-//  offers: getOffersListByCity(state.offers, state.activeCity),
-//  sortType: state.sortType,
-//});
-
 export default Main;
-//export default connect(mapStateToProps)(Main);

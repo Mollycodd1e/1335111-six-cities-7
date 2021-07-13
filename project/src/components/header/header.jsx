@@ -1,7 +1,5 @@
 import React from 'react';
-//import {connect} from 'react-redux';
 import { useSelector } from 'react-redux';
-//import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import WithAuth from '../with-auth/with-auth.jsx';
 import WithoutAuth from '../without-auth/withoutAuth.jsx';
@@ -30,13 +28,4 @@ function Header() {
     </header>);
 }
 
-//Header.propTypes = {
-//  authorizationStatus: PropTypes.string.isRequired,
-//};
-//
-//const mapStateToProps = (state) => ({
-//  authorizationStatus: state.authorizationStatus,
-//});
-
 export default Header;
-//export default connect(mapStateToProps)(Header);

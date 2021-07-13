@@ -1,14 +1,12 @@
 import React, {useRef} from 'react';
 import Logo from '../logo/logo.jsx';
 import {useHistory} from 'react-router-dom';
-//import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
 import {login} from '../../store/api-action.js';
 import {AppRoute} from '../../const.js';
 
 function SignIn () {
 
-  //const {onSubmit} = props;
   const dispatch = useDispatch();
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -76,15 +74,4 @@ function SignIn () {
   );
 }
 
-//SignIn.propTypes = {
-//  onSubmit: PropTypes.func.isRequired,
-//};
-//
-//const mapDispatchToProps = (dispatch) => ({
-//  onSubmit(authData) {
-//    dispatch(login(authData));
-//  },
-//});
-
 export default SignIn;
-//export default connect(null, mapDispatchToProps)(SignIn);

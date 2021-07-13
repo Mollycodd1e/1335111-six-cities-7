@@ -1,17 +1,13 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router';
-//import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
-//import offersListProp from '../offersList/offers-list.prop.jsx';
-//import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 import {AuthorizationStatus} from '../../const.js';
 import {getOffersListByCity} from '../../utils.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
-//import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOffers, getOffersNearby, getReviews, getRoom, getRoomLoadStatus } from '../../store/data/selectors.js';
@@ -20,7 +16,6 @@ import { getAuthorizationStatus } from '../../store/user/selectors.js';
 
 function Room () {
 
-  //const {offers, reviews, offersNearby , loadData, room, isRoomDataLoaded, authorizationStatus} = props;
   const dispatch = useDispatch();
   const activeCity = useSelector(getActiveCity);
   const offers = useSelector(getOffers);
@@ -155,33 +150,4 @@ function Room () {
       </main>
     </div>);}
 
-//Room.propTypes = {
-//  offers: offersListProp,
-//  reviews: reviewsProp,
-//  loadData: PropTypes.func.isRequired,
-//  room: PropTypes.object.isRequired,
-//  offersNearby: offersListProp,
-//  isRoomDataLoaded: PropTypes.bool.isRequired,
-//  authorizationStatus: PropTypes.string.isRequired,
-//};
-
-//const mapStateToProps = (state) => ({
-//  activeCity: state.activeCity,
-//  offers: getOffersListByCity(state.offers, state.activeCity),
-//  reviews: state.reviews,
-//  room: state.room,
-//  offersNearby: state.offersNearby,
-//  isRoomDataLoaded: state.isRoomDataLoaded,
-//  authorizationStatus: state.authorizationStatus,
-//});
-
-//const mapDispatchToProps = (dispatch) => ({
-//  loadData(id) {
-//    dispatch(fetchRoom(id));
-//    dispatch(fetchReviews(id));
-//    dispatch(fetchOffersNearby(id));
-//  },
-//});
-
 export default Room;
-//export default connect(mapStateToProps, mapDispatchToProps)(Room);
