@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'cities/changeCity',
   CHANGE_SORT_TYPE: 'sortTypes/changeSortType',
@@ -9,43 +11,73 @@ export const ActionType = {
   LOGOUT: 'user/logout',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
+export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
+  payload: city,
+}));
 
-  changeSortType: (sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
+export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortType) => ({
+  payload: sortType,
+}));
 
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
+export const loadOffers = createAction( ActionType.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
 
-  loadRoom: (room) => ({
-    type: ActionType.LOAD_ROOM,
-    payload: room,
-  }),
+export const loadRoom = createAction(ActionType.LOAD_ROOM, (room) => ({
+  payload: room,
+}));
 
-  loadReviews: (reviews) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload: reviews,
-  }),
+export const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
 
-  loadOffersNearby: (offersNearby) => ({
-    type: ActionType.LOAD_OFFERS_NEARBY,
-    payload: offersNearby,
-  }),
+export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (offersNearby) => ({
+  payload: offersNearby,
+}));
 
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-};
+export const logout = createAction(ActionType.LOGOUT);
+
+//export const ActionCreator = {
+//  changeCity: (city) => ({
+//    type: ActionType.CHANGE_CITY,
+//    payload: city,
+//  }),
+//
+//  changeSortType: (sortType) => ({
+//    type: ActionType.CHANGE_SORT_TYPE,
+//    payload: sortType,
+//  }),
+//
+//  loadOffers: (offers) => ({
+//    type: ActionType.LOAD_OFFERS,
+//    payload: offers,
+//  }),
+//
+//  loadRoom: (room) => ({
+//    type: ActionType.LOAD_ROOM,
+//    payload: room,
+//  }),
+//
+//  loadReviews: (reviews) => ({
+//    type: ActionType.LOAD_REVIEWS,
+//    payload: reviews,
+//  }),
+//
+//  loadOffersNearby: (offersNearby) => ({
+//    type: ActionType.LOAD_OFFERS_NEARBY,
+//    payload: offersNearby,
+//  }),
+//
+//  requireAuthorization: (status) => ({
+//    type: ActionType.REQUIRED_AUTHORIZATION,
+//    payload: status,
+//  }),
+//
+//  logout: () => ({
+//    type: ActionType.LOGOUT,
+//  }),
+//};

@@ -1,14 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
+//import {connect} from 'react-redux';
 import Logo from '../logo/logo.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
-import offersListProp from '../offersList/offers-list.prop';
+//import offersListProp from '../offersList/offers-list.prop';
 import {AppRoute} from '../../const.js';
+import { useSelector } from 'react-redux';
+import { getOffers } from '../../store/data/selectors.js';
 
-function Favorites (props) {
+function Favorites () {
 
-  const {offers} = props;
+  const offers = useSelector(getOffers);
 
   const favoriteOffers = offers.filter((offer) => offer.isFavotie);
 
@@ -103,13 +105,13 @@ function Favorites (props) {
   );
 }
 
-Favorites.propTypes = {
-  offers: offersListProp,
-};
+//Favorites.propTypes = {
+//  offers: offersListProp,
+//};
 
-const mapStateToProps = ({offers}) => ({
-  offers: offers,
-});
+//const mapStateToProps = ({offers}) => ({
+//  offers: offers,
+//});
 
-export {Favorites};
-export default connect(mapStateToProps)(Favorites);
+export default Favorites;
+//export default connect(mapStateToProps)(Favorites);

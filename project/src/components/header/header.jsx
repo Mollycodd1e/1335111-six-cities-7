@@ -1,14 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+//import {connect} from 'react-redux';
+import { useSelector } from 'react-redux';
+//import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import WithAuth from '../with-auth/with-auth.jsx';
 import WithoutAuth from '../without-auth/withoutAuth.jsx';
 import {AuthorizationStatus} from '../../const.js';
+import { getAuthorizationStatus } from '../../store/user/selectors.js';
 
-function Header(props) {
+function Header() {
 
-  const {authorizationStatus} = props;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   return (
     <header className="header">
@@ -28,13 +30,13 @@ function Header(props) {
     </header>);
 }
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-};
+//Header.propTypes = {
+//  authorizationStatus: PropTypes.string.isRequired,
+//};
+//
+//const mapStateToProps = (state) => ({
+//  authorizationStatus: state.authorizationStatus,
+//});
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-export {Header};
-export default connect(mapStateToProps)(Header);
+export default Header;
+//export default connect(mapStateToProps)(Header);

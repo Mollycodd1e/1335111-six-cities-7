@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {AppRoute} from '../../const';
-import {logout} from '../../store/api-action.js';
+import {logoutAction} from '../../store/api-action.js';
 import PropTypes from 'prop-types';
 
 function WithAuth(props) {
@@ -10,7 +10,7 @@ function WithAuth(props) {
   const {onLogoutClick} = props;
 
   const handleLogoutClick = () => {
-    onLogoutClick(logout);
+    onLogoutClick(logoutAction);
   };
 
   return (
@@ -36,7 +36,7 @@ WithAuth.propTypes = {
 };
 
 const mapDispatchToProps = {
-  onLogoutClick: logout,
+  onLogoutClick: logoutAction,
 };
 
 export {WithAuth};
