@@ -1,4 +1,4 @@
-import { loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout } from './action.js';
+import {loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout, loadFavoriteOffers} from './action.js';
 import {AuthorizationStatus, APIRoute} from '../const.js';
 import {adaptOffersToClient, adaptReviewsToClient} from '../adapter.js';
 
@@ -63,4 +63,20 @@ export const postReview = ({id, comment, rating}) => (dispatch, _getState, api) 
       const reviews = data.map((review) => adaptReviewsToClient(review));
       return reviews;
     }).then((reviews) => dispatch(loadReviews(reviews)))
+);
+
+export const fetchFavoriteList = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITE)
+    .then(({data}) => {
+      const favoriteOffers = data.map((offer) => adaptOffersToClient(offer));
+      return favoriteOffers;
+    }).then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
+);
+
+export const postFavorites = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {id, status})
+    .then(({data}) => {
+      const favoriteOffers = data.map((offer) => adaptOffersToClient(offer));
+      return favoriteOffers;
+    }).then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
 );

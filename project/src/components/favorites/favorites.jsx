@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../header/header.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import {AppRoute} from '../../const.js';
-import {useSelector} from 'react-redux';
-import {getOffers} from '../../store/data/selectors.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFavoriteOffers} from '../../store/data/selectors.js';
+import {fetchFavoriteList} from '../../store/api-action.js';
 
 function Favorites () {
 
-  const offers = useSelector(getOffers);
+  //const offers = useSelector(getOffers);
+  const dispatch = useDispatch();
+  const favoriteOffers = useSelector(getFavoriteOffers);
 
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  useEffect(() => {
+    dispatch(fetchFavoriteList);
+  }, [favoriteOffers]);
 
   return (
     <div className="page">
