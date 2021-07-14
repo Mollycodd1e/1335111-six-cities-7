@@ -1,15 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import offerProp from '../offersList/offer.prop';
 import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
-import {APIRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {postFavorites} from '../../store/api-action';
 
 function Card(props) {
   const {offers, isNearby, onOfferHover} = props;
+
   const history = useHistory();
   const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  const [status, setStatus] = useState('0');
+
+  const onFavoriteClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavorites({id: offers.id, status: status}));
+    setStatus('1');
+  };
 
   const handleMouseEnter = () => {
     if (onOfferHover) {
@@ -42,7 +54,7 @@ function Card(props) {
           </div>
           <button className={offers.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={authorizationStatus === AuthorizationStatus.AUTH ? null : () => history.push(APIRoute.LOGIN)}
+            onClick={authorizationStatus === AuthorizationStatus.AUTH ? onFavoriteClick : () => history.push(AppRoute.SIGNIN)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

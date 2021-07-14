@@ -41,4 +41,5 @@ export const APIRoute = {
   ROOM: '/hotels',
   REVIEWS: '/comments',
   OFFERS_NEARBY: '/nearby',
+  FAVORITE: '/favorite',
 };
