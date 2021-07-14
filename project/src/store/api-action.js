@@ -1,4 +1,4 @@
-import { loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout } from './action.js';
+import {loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout} from './action.js';
 import {AuthorizationStatus, APIRoute} from '../const.js';
 import {adaptOffersToClient, adaptReviewsToClient} from '../adapter.js';
 
@@ -64,3 +64,7 @@ export const postReview = ({id, comment, rating}) => (dispatch, _getState, api) 
       return reviews;
     }).then((reviews) => dispatch(loadReviews(reviews)))
 );
+
+//export const postFavorites = () => ({
+//
+//});

@@ -8,6 +8,7 @@ import {getOffersListByCity} from '../../utils.js';
 import SortList from '../sort-list/sort-list.jsx';
 import {getActiveCity, getSortType} from '../../store/changer/selectors.js';
 import {getOffers} from '../../store/data/selectors.js';
+import MainEmpty from '../main-empty/main-empty.jsx';
 
 function Main() {
   const activeCity = useSelector(getActiveCity);
@@ -33,19 +34,21 @@ function Main() {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersListByCity.length} places to stay in {activeCity}</b>
-              <SortList sortType={sortType} />
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offersListByCity} isNearby={false} onOfferHover={handleOfferHover}/>
+          {offersListByCity.length > 0 ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersListByCity.length} places to stay in {activeCity}</b>
+                <SortList sortType={sortType} />
+                <div className="cities__places-list places__list tabs__content">
+                  <OffersList offers={offersListByCity} isNearby={false} onOfferHover={handleOfferHover}/>
+                </div>
+              </section>
+              <div className="cities__right-section">
+                <Map offers={offersListByCity} activeCity={activeCity} activeOffer={activeOffer}/>
               </div>
-            </section>
-            <div className="cities__right-section">
-              <Map offers={offersListByCity} activeCity={activeCity} activeOffer={activeOffer}/>
             </div>
-          </div>
+            : <MainEmpty />}
         </div>
       </main>
     </div>

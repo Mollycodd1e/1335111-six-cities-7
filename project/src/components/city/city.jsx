@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { changeCity } from '../../store/action';
-import { useDispatch } from 'react-redux';
+import {changeCity} from '../../store/action';
+import {useDispatch} from 'react-redux';
 
 function City(props) {
   const {city, isActive} = props;
