@@ -9,10 +9,10 @@ import {AuthorizationStatus} from '../../const.js';
 import {getOffersListByCity} from '../../utils.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { getOffers, getOffersNearby, getReviews, getRoom, getRoomLoadStatus } from '../../store/data/selectors.js';
-import { getActiveCity } from '../../store/changer/selectors.js';
-import { getAuthorizationStatus } from '../../store/user/selectors.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {getOffers, getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
+import {getActiveCity} from '../../store/changer/selectors.js';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
 
 function Room () {
 

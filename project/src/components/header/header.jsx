@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Logo from '../logo/logo.jsx';
 import WithAuth from '../with-auth/with-auth.jsx';
-import WithoutAuth from '../without-auth/withoutAuth.jsx';
+import WithoutAuth from '../without-auth/without-auth.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import { getAuthorizationStatus } from '../../store/user/selectors.js';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
 
 function Header() {
 

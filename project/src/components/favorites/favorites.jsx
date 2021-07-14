@@ -3,8 +3,8 @@ import Header from '../header/header.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import {AppRoute} from '../../const.js';
-import { useSelector } from 'react-redux';
-import { getOffers } from '../../store/data/selectors.js';
+import {useSelector} from 'react-redux';
+import {getOffers} from '../../store/data/selectors.js';
 
 function Favorites () {
 

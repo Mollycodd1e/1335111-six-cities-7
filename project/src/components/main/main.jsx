@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-//import {connect} from 'react-redux';
 import {useSelector} from 'react-redux';
 import Header from '../header/header.jsx';
 import Map from '../map/map.jsx';
