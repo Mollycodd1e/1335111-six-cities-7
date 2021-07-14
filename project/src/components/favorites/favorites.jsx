@@ -1,43 +1,20 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import Logo from '../logo/logo.jsx';
+import Header from '../header/header.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
-import offersListProp from '../offersList/offers-list.prop';
+import {AppRoute} from '../../const.js';
+import {useSelector} from 'react-redux';
+import {getOffers} from '../../store/data/selectors.js';
 
-function Favorites (props) {
+function Favorites () {
 
-  const {offers} = props;
+  const offers = useSelector(getOffers);
 
-  const favoriteOffers = offers.filter((offer) => offer.isFavotie);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" xlinkHref="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" xlinkHref="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
@@ -49,7 +26,7 @@ function Favorites (props) {
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <a className="locations__item-link" xlinkHref="#">
-                        {}<span>Amsterdam</span>
+                        <span>Amsterdam</span>
                       </a>
                     </div>
                   </div>
@@ -94,21 +71,12 @@ function Favorites (props) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" xlinkHref="main.html">
+        <Link className="footer__logo-link" to={AppRoute.MAIN}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );
 }
 
-Favorites.propTypes = {
-  offers: offersListProp,
-};
-
-const mapStateToProps = ({offers}) => ({
-  offers: offers,
-});
-
-export {Favorites};
-export default connect(mapStateToProps)(Favorites);
+export default Favorites;

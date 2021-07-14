@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { changeCity } from '../../store/action';
+import { useDispatch } from 'react-redux';
 
 function City(props) {
-  const {city, isActive, onCityChange} = props;
+  const {city, isActive} = props;
+
+  const dispatch = useDispatch();
 
   const handleCityChange = (evt) => {
     evt.preventDefault();
-    onCityChange(city);
+    dispatch(changeCity(city));
   };
 
   return (
@@ -20,7 +24,6 @@ function City(props) {
 City.propTypes = {
   city: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
-  onCityChange: PropTypes.func.isRequired,
 };
 
 export default City;

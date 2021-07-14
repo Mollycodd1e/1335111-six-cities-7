@@ -1,36 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import City from '../city/city.jsx';
 import {CITIES} from '../../const.js';
-import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action.js';
+import {getActiveCity} from '../../store/changer/selectors.js';
 
-function CitiesList(props) {
+function CitiesList() {
 
-  const {activeCity, onCityChange} = props;
+  const activeCity = useSelector(getActiveCity);
 
   return (
     <ul className="locations__list tabs__list">
       {CITIES.map((city) =>
-        <City key={city} city={city} isActive={activeCity === city} onCityChange={onCityChange}/>)}
+        <City key={city} city={city} isActive={activeCity === city}/>)}
     </ul>
   );
 }
 
-CitiesList.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  onCityChange: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityChange(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export default CitiesList;

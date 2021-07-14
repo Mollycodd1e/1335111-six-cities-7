@@ -1,16 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {AppRoute} from '../../const';
-import {logout} from '../../store/api-action.js';
-import PropTypes from 'prop-types';
+import {logoutAction} from '../../store/api-action.js';
 
-function WithAuth(props) {
+function WithAuth() {
 
-  const {onLogoutClick} = props;
+  const dispatch = useDispatch();
 
   const handleLogoutClick = () => {
-    onLogoutClick(logout);
+    dispatch(logoutAction());
   };
 
   return (
@@ -31,13 +30,4 @@ function WithAuth(props) {
   );
 }
 
-WithAuth.propTypes = {
-  onLogoutClick: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = {
-  onLogoutClick: logout,
-};
-
-export {WithAuth};
-export default connect(null, mapDispatchToProps)(WithAuth);
+export default WithAuth;

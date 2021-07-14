@@ -1,27 +1,37 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router';
-import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
-import offersListProp from '../offersList/offers-list.prop.jsx';
-import reviewsProp from '../offersList/reviews.prop.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
-import {getOffersListByCity} from '../../const.js';
-import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
-import PropTypes from 'prop-types';
-import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import {AuthorizationStatus} from '../../const.js';
-//import offerProp from '../offersList/offer.prop.jsx';
+import {getOffersListByCity} from '../../utils.js';
+import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import {useDispatch, useSelector} from 'react-redux';
+import {getOffers, getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
+import {getActiveCity} from '../../store/changer/selectors.js';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
 
-function Room (props) {
+function Room () {
 
-  const {offers, reviews, offersNearby , loadData, room, isRoomDataLoaded, authorizationStatus} = props;
+  const dispatch = useDispatch();
+  const activeCity = useSelector(getActiveCity);
+  const offers = useSelector(getOffers);
+  const offersListByCity = getOffersListByCity(offers, activeCity);
+  const reviews = useSelector(getReviews);
+  const room = useSelector(getRoom);
+  const offersNearby = useSelector(getOffersNearby);
+  const isRoomDataLoaded = useSelector(getRoomLoadStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
   const {id} = useParams();
 
   useEffect(() => {
-    loadData(id);
+    dispatch(fetchRoom(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchOffersNearby(id));
   }, [id]);
 
   if (!isRoomDataLoaded) {
@@ -32,10 +42,7 @@ function Room (props) {
 
   const nearbyOffersCount = 3;
   const maxVisiblePhotos = 6;
-  const offer = offers.find((item) => item.id === Number(id));
 
-  //for (const offer of offers) {
-  //if ((`/offer/${offer.id}`) === window.location.pathname) {
   return (
     <div className="page">
       <Header />
@@ -44,7 +51,7 @@ function Room (props) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, maxVisiblePhotos).map((image) => (
+              {room.images.slice(0, maxVisiblePhotos).map((image) => (
                 <div key={image} className="property__image-wrapper">
                   <img className="property__image" src={image} alt="Photo studio"/>
                 </div>
@@ -93,7 +100,7 @@ function Room (props) {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods.map((item) =>
+                  {room.goods.map((item) =>
                     <li className="property__inside-item" key={item}>{item}</li>,
                   )}
                 </ul>
@@ -102,18 +109,18 @@ function Room (props) {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
+                    <img className="property__avatar user__avatar" src={room.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {offer.host.name}
+                    {room.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.host.isPro ? 'Pro' : ''}
+                    {room.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.description}
+                    {room.description}
                   </p>
                   <p className="property__text">
                     An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
@@ -129,7 +136,7 @@ function Room (props) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offers.slice(0, nearbyOffersCount)}/>
+            <Map offers={offersListByCity.slice(0, nearbyOffersCount)}/>
           </section>
         </section>
         <div className="container">
@@ -142,37 +149,5 @@ function Room (props) {
         </div>
       </main>
     </div>);}
-//  );}}
-//}
 
-Room.propTypes = {
-  offers: offersListProp,
-  reviews: reviewsProp,
-  loadData: PropTypes.func.isRequired,
-  room: PropTypes.object.isRequired,
-  offersNearby: offersListProp,
-  isRoomDataLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  offers: getOffersListByCity(state.offers, state.activeCity),
-  reviews: state.reviews,
-  room: state.room,
-  offersNearby: state.offersNearby,
-  isRoomDataLoaded: state.isRoomDataLoaded,
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadData(id) {
-    dispatch(fetchRoom(id));
-    dispatch(fetchReviews(id));
-    dispatch(fetchOffersNearby(id));
-  },
-});
-
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;
