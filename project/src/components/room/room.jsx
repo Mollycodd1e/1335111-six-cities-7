@@ -6,32 +6,33 @@ import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 import {AuthorizationStatus} from '../../const.js';
-import {getOffersListByCity} from '../../utils.js';
+//import {getOffersListByCity} from '../../utils.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import {useDispatch, useSelector} from 'react-redux';
-import {getOffers, getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
-import {getActiveCity} from '../../store/changer/selectors.js';
+import {getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
+//import {getActiveCity} from '../../store/changer/selectors.js';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
 
 function Room () {
 
   const dispatch = useDispatch();
-  const activeCity = useSelector(getActiveCity);
-  const offers = useSelector(getOffers);
-  const offersListByCity = getOffersListByCity(offers, activeCity);
+
+  const {id} = useParams();
+  //const activeCity = useSelector(getActiveCity);
+  //const offers = useSelector(getOffers);
+  //const offersListByCity = getOffersListByCity(offers, activeCity);
+  const offersNearby = useSelector(getOffersNearby);
   const reviews = useSelector(getReviews);
   const room = useSelector(getRoom);
-  const offersNearby = useSelector(getOffersNearby);
+  //const offersNearby = useSelector(getOffersNearby);
   const isRoomDataLoaded = useSelector(getRoomLoadStatus);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
-  const {id} = useParams();
-
   useEffect(() => {
+    dispatch(fetchOffersNearby(id));
     dispatch(fetchRoom(id));
     dispatch(fetchReviews(id));
-    dispatch(fetchOffersNearby(id));
   }, [id]);
 
   if (!isRoomDataLoaded) {
@@ -40,7 +41,7 @@ function Room () {
     );
   }
 
-  const nearbyOffersCount = 3;
+  //const nearbyOffersCount = 3;
   const maxVisiblePhotos = 6;
 
   return (
@@ -136,7 +137,7 @@ function Room () {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offersListByCity.slice(0, nearbyOffersCount)}/>
+            <Map offers={offersNearby} room={room}/>
           </section>
         </section>
         <div className="container">

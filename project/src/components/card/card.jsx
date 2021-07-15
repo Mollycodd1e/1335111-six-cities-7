@@ -80,7 +80,7 @@ function Card(props) {
 Card.propTypes = {
   isNearby: PropTypes.bool.isRequired,
   offers: offerProp,
-  onOfferHover: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
 };
 
 export default Card;

@@ -6,7 +6,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function Map(props) {
-  const {offers, activeOffer} = props;
+  const {offers, activeOffer, room} = props;
 
   const mapRef = useRef(null);
 
@@ -22,8 +22,7 @@ function Map(props) {
     iconAnchor: [15, 30],
   });
 
-
-  useMap(mapRef, offers, activeOffer, defaultIcon, activeIcon);
+  useMap(mapRef, offers, activeOffer, defaultIcon, activeIcon, room);
 
   return <section className="cities__map map" id="map" ref={mapRef} style={{height:'100%'}}></section>;
 }
@@ -31,6 +30,7 @@ function Map(props) {
 Map.propTypes = {
   offers: offersListProp,
   activeOffer: offerProp,
+  room: offerProp,
 };
 
 export default Map;
