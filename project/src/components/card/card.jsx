@@ -15,12 +15,17 @@ function Card(props) {
 
   const dispatch = useDispatch();
 
-  const [status, setStatus] = useState('0');
+  const [status, setStatus] = useState(offers.isFavorite);
 
   const onFavoriteClick = (evt) => {
     evt.preventDefault();
-    dispatch(postFavorites({id: offers.id, status: status}));
-    setStatus('1');
+    if (!offers.isFavorite || status === 0) {
+      setStatus(1);
+      dispatch(postFavorites(offers.id , 1));
+    } else {
+      setStatus(0);
+      dispatch(postFavorites(offers.id , 0));
+    }
   };
 
   const handleMouseEnter = () => {

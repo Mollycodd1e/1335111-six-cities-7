@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import Header from '../header/header.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
@@ -8,13 +8,12 @@ import {getFavoriteOffers} from '../../store/data/selectors.js';
 import {fetchFavoriteList} from '../../store/api-action.js';
 
 function Favorites () {
-
-  //const offers = useSelector(getOffers);
   const dispatch = useDispatch();
+
   const favoriteOffers = useSelector(getFavoriteOffers);
 
   useEffect(() => {
-    dispatch(fetchFavoriteList);
+    dispatch(fetchFavoriteList());
   }, [favoriteOffers]);
 
   return (

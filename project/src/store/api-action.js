@@ -75,8 +75,5 @@ export const fetchFavoriteList = () => (dispatch, _getState, api) => (
 
 export const postFavorites = (id, status) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {id, status})
-    .then(({data}) => {
-      const favoriteOffers = data.map((offer) => adaptOffersToClient(offer));
-      return favoriteOffers;
-    }).then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
+    .then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
 );

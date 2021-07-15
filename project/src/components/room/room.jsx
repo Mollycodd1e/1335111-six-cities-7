@@ -6,12 +6,10 @@ import OffersList from '../offersList/offers-list.jsx';
 import ReviewsForm from '../reviews-form/reviews-form.jsx';
 import ReviewsList from '../reviews/review-list.jsx';
 import {AuthorizationStatus} from '../../const.js';
-//import {getOffersListByCity} from '../../utils.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import {useDispatch, useSelector} from 'react-redux';
 import {getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
-//import {getActiveCity} from '../../store/changer/selectors.js';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
 
 function Room () {
@@ -19,19 +17,16 @@ function Room () {
   const dispatch = useDispatch();
 
   const {id} = useParams();
-  //const activeCity = useSelector(getActiveCity);
-  //const offers = useSelector(getOffers);
-  //const offersListByCity = getOffersListByCity(offers, activeCity);
+
   const offersNearby = useSelector(getOffersNearby);
   const reviews = useSelector(getReviews);
   const room = useSelector(getRoom);
-  //const offersNearby = useSelector(getOffersNearby);
   const isRoomDataLoaded = useSelector(getRoomLoadStatus);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    dispatch(fetchOffersNearby(id));
-    dispatch(fetchRoom(id));
+    dispatch(fetchOffersNearby(id)).then(() =>
+      dispatch(fetchRoom(id)));
     dispatch(fetchReviews(id));
   }, [id]);
 
@@ -41,7 +36,6 @@ function Room () {
     );
   }
 
-  //const nearbyOffersCount = 3;
   const maxVisiblePhotos = 6;
 
   return (
