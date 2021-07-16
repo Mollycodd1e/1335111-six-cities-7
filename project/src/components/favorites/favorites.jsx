@@ -10,11 +10,11 @@ import {fetchFavoriteList} from '../../store/api-action.js';
 function Favorites () {
   const dispatch = useDispatch();
 
-  const favoriteOffers = useSelector(getFavoriteOffers);
-
   useEffect(() => {
     dispatch(fetchFavoriteList());
-  }, [favoriteOffers]);
+  });
+
+  const favoriteOffers = useSelector(getFavoriteOffers);
 
   return (
     <div className="page">

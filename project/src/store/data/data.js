@@ -30,15 +30,8 @@ const data = createReducer(initialState, (builder) => {
       state.isDataLoaded = true;
     })
     .addCase(loadFavoriteOffers, (state, action) => {
-      //state.favoriteOffers = action.payload;
-      //state.isDataLoaded = true;
-      const index = state.offers.findIndex(({id}) => id === action.payload.id);
-
-      state.offers = [
-        ...state.offers.slice(0, index),
-        action.payload,
-        ...state.offers.slice(index + 1),
-      ];
+      state.offers = state.offers.map((offer) =>
+        action.payload.id === offer.id ? action.payload : offer);
     });
 });
 

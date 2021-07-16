@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import offerProp from '../offersList/offer.prop';
 import PropTypes from 'prop-types';
@@ -15,21 +15,11 @@ function Card(props) {
 
   const dispatch = useDispatch();
 
-  const [status, setStatus] = useState(0);
+  const status = offers.isFavorite ? 0 : 1;
 
-  //useEffect(() => {
-  //  dispatch(postFavorites(offers.id, status));
-  //}, [status]);
-
-  const onFavoriteClick = (evt) => {
+  const handleFavoriteClick = (evt) => {
     evt.preventDefault();
-    if (status === 0) {
-      setStatus(1);
-      dispatch(postFavorites(offers.id , status));
-    } else {
-      setStatus(0);
-      dispatch(postFavorites(offers.id , status));
-    }
+    dispatch(postFavorites(offers.id , status));
   };
 
   const handleMouseEnter = () => {
@@ -63,7 +53,7 @@ function Card(props) {
           </div>
           <button className={offers.isFavorite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'}
             type="button"
-            onClick={authorizationStatus === AuthorizationStatus.AUTH ? onFavoriteClick : () => history.push(AppRoute.SIGNIN)}
+            onClick={authorizationStatus === AuthorizationStatus.AUTH ? handleFavoriteClick : () => history.push(AppRoute.SIGNIN)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
