@@ -3,9 +3,9 @@ import {Link, useHistory} from 'react-router-dom';
 import offerProp from '../offersList/offer.prop';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAuthorizationStatus} from '../../store/user/selectors';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {postFavorites} from '../../store/api-action';
+import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import {AppRoute, AuthorizationStatus} from '../../const.js';
+import {postFavorites} from '../../store/api-action.js';
 
 function Card(props) {
   const {offers, isNearby, onOfferHover} = props;
@@ -15,16 +15,20 @@ function Card(props) {
 
   const dispatch = useDispatch();
 
-  const [status, setStatus] = useState(offers.isFavorite);
+  const [status, setStatus] = useState(0);
+
+  //useEffect(() => {
+  //  dispatch(postFavorites(offers.id, status));
+  //}, [status]);
 
   const onFavoriteClick = (evt) => {
     evt.preventDefault();
-    if (!offers.isFavorite || status === 0) {
+    if (status === 0) {
       setStatus(1);
-      dispatch(postFavorites(offers.id , 1));
+      dispatch(postFavorites(offers.id , status));
     } else {
       setStatus(0);
-      dispatch(postFavorites(offers.id , 0));
+      dispatch(postFavorites(offers.id , status));
     }
   };
 

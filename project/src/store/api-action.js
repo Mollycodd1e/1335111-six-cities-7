@@ -67,13 +67,11 @@ export const postReview = ({id, comment, rating}) => (dispatch, _getState, api) 
 
 export const fetchFavoriteList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE)
-    .then(({data}) => {
-      const favoriteOffers = data.map((offer) => adaptOffersToClient(offer));
-      return favoriteOffers;
-    }).then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
+    .then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
 );
 
 export const postFavorites = (id, status) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {id, status})
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
+    .then(({data}) => adaptOffersToClient(data))
     .then((favoriteOffers) => dispatch(loadFavoriteOffers(favoriteOffers)))
 );
