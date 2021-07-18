@@ -7,7 +7,8 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       const offers = data.map((offer) => adaptOffersToClient(offer));
       return offers;
-    }).then((offers) => dispatch(loadOffers(offers)))
+    })
+    .then((offers) => dispatch(loadOffers(offers)))
 );
 
 export const fetchRoom = (id) => (dispatch, _getState, api) => (
