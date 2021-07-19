@@ -7,7 +7,7 @@ import { requireAuthorization } from './store/action.js';
 import {AuthorizationStatus} from './const.js';
 import App from './components/app/app';
 import reducer from './store/reducer.js';
-import {checkAuth, fetchOffersList} from './store/api-action.js';
+import {checkAuth, fetchFavoriteList, fetchOffersList} from './store/api-action.js';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
@@ -23,6 +23,7 @@ const store = configureStore({reducer: reducer, middleware: (getDefaultMiddlewar
 
 store.dispatch(checkAuth());
 store.dispatch(fetchOffersList());
+store.dispatch(fetchFavoriteList());
 
 ReactDOM.render(
   <React.StrictMode>

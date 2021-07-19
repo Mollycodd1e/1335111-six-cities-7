@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-function useMap(mapRef, offers, activeOffer, defaultIcon, activeIcon) {
+function useMap(mapRef, offers, activeOffer, defaultIcon, activeIcon, room) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -47,6 +47,12 @@ function useMap(mapRef, offers, activeOffer, defaultIcon, activeIcon) {
           .marker([offer.location.latitude, offer.location.longitude], {icon: (activeOffer === offer) ? activeIcon : defaultIcon})
           .addTo(map);
       });
+
+      if(room) {
+        leaflet
+          .marker([room.location.latitude, room.location.longitude], {icon: activeIcon})
+          .addTo(map);
+      }
 
       setMap(map);
     }

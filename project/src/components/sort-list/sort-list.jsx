@@ -9,7 +9,11 @@ function SortList() {
 
   const dispatch = useDispatch();
   const sortType = useSelector(getSortType);
-  const onSortChange = dispatch(changeSortType(sortType));
+
+  const onSortChange = (sort) => (
+    dispatch(changeSortType(sort)),
+    setIsSortListOpen((prevState) => !prevState)
+  );
 
   const [isSortListOpen, setIsSortListOpen] = useState(false);
 
