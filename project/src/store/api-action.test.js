@@ -181,26 +181,26 @@ describe('Async operations', () => {
       });
   });
 
-  //it('should make a correct API call to GET /room', () => {
-  //  const apiMock = new MockAdapter(api);
-  //  const dispatch = jest.fn();
-  //  const offerId = 'testId';
-  //  const roomLoader = fetchRoom(offerId);
-  //
-  //  apiMock
-  //    .onGet(`${APIRoute.ROOM}/${offerId}`)
-  //    .reply(200, MOCK_ROOM);
-  //
-  //  return roomLoader(dispatch, () => {}, api)
-  //    .then(() => {
-  //      expect(dispatch).toHaveBeenCalledTimes(1);
-  //
-  //      expect(dispatch).toHaveBeenNthCalledWith(1, {
-  //        type: ActionType.LOAD_ROOM,
-  //        payload: adaptOfferToClient(MOCK_ROOM),
-  //      });
-  //    });
-  //});
+  it('should make a correct API call to GET /room', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offerId = 'testId';
+    const roomLoader = fetchRoom(offerId);
+
+    apiMock
+      .onGet(`${APIRoute.ROOM}/${offerId}`)
+      .reply(200, MOCK_ROOM);
+
+    return roomLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_ROOM,
+          payload: adaptOfferToClient(MOCK_ROOM),
+        });
+      });
+  });
 
   it('should make a correct API call to GET /offersNearby', () => {
     const apiMock = new MockAdapter(api);
