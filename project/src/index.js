@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './browser-history.js';
 import {configureStore} from '@reduxjs/toolkit';
 import {createAPI} from './components/services/api.js';
 import {requireAuthorization} from './store/action.js';
@@ -28,7 +30,9 @@ store.dispatch(fetchFavoriteList());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
