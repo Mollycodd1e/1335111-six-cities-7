@@ -8,6 +8,7 @@ import configureStore from 'redux-mock-store';
 import {AppRoute, AuthorizationStatus} from '../../const.js';
 import {adaptOffersToClient} from '../../adapter.js';
 import {createMemoryHistory} from 'history';
+import SignIn from '../sign-in/sign-in.jsx';
 
 let store;
 let mockStore;
@@ -87,13 +88,33 @@ describe('Component: Card', () => {
     expect(onOfferHover).toBeCalled();
   });
 
-  it('should redirect when user clicked on button without auth', () => {
-    store = mockStore({
-      USER: {activeCity: 'Paris', authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: MOCK_OFFERS},
-    });
+  //it('should redirect when user clicked on button without Auth', () => {
+//
+//    store = mockStore({
+//      USER: {activeCity: 'Paris', authorizationStatus: AuthorizationStatus.NO_AUTH},
+//      DATA: {offers: MOCK_OFFERS},
+//    });
 
-    history.push(AppRoute.MAIN)
+//    history.push(AppRoute.MAIN);
+//    render(
+//      <Provider store={store}>
+//        <Router history={history}>
+//          <Switch>
+//            <Card offers={adaptOffersToClient(MOCK_OFFERS)} isNearby={true} />
+//            <Route exact path={AppRoute.SIGNIN}>
+//              <SignIn />
+//            </Route>
+//          </Switch>
+//        </Router>
+//      </Provider>
+//    )
+
+//    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
+//    userEvent.click(screen.getByRole('button'));
+//    expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
+//  });
+
+  it('should not redirect when user clicked on button with Auth', () => {
 
     render(
       <Provider store={store}>
@@ -110,9 +131,9 @@ describe('Component: Card', () => {
       </Provider>
     )
 
-    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
-    expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
+    expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
   });
 });
 
