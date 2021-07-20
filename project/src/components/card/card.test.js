@@ -100,7 +100,7 @@ describe('Component: Card', () => {
         <Router history={history}>
           <Switch>
             <Route>
-              <Card offers={adaptOffersToClient(MOCK_OFFERS)} isNearby={true}/>
+              <Card offers={adaptOffersToClient(MOCK_OFFERS)} isNearby={true} />
             </Route>
             <Route exact path={AppRoute.SIGNIN}>
               <h1>Login screen</h1>
@@ -110,7 +110,7 @@ describe('Component: Card', () => {
       </Provider>
     )
 
-    //expect(screen.getByText(/Login screen/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
     expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
   });
