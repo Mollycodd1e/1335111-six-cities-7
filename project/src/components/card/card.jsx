@@ -35,7 +35,7 @@ function Card(props) {
   };
 
   return (
-    <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
+    <article className={isNearby ? 'near-places__card place-card' : 'cities__place-card place-card'} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} aria-label='article'>
       {isNearby ? '' :
         <div className={offers.isPremium ? 'place-card__mark' : 'visually-hidden'}>
           <span>Premium</span>
