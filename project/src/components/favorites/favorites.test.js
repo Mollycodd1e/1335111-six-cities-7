@@ -5,8 +5,8 @@ import {Router} from 'react-router-dom';
 import Favorites from './favorites';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import { AuthorizationStatus } from '../../const';
-import { adaptOffersToClient } from '../../adapter';
+import {AuthorizationStatus} from '../../const';
+import {adaptOffersToClient} from '../../adapter';
 
 let store;
 let history;

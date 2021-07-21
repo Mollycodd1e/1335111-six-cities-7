@@ -8,7 +8,7 @@ import configureStore from 'redux-mock-store';
 import {AppRoute, AuthorizationStatus} from '../../const.js';
 import {adaptOfferToClient} from '../../adapter.js';
 import {createMemoryHistory} from 'history';
-//import SignIn from '../sign-in/sign-in.jsx';
+import * as Redux from 'react-redux';
 
 let store;
 let mockStore;
@@ -111,33 +111,38 @@ describe('Component: Card', () => {
 
     expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
-    //expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
   });
 
-  //it('should not redirect when user clicked on button with Auth', () => {
-  //  store = mockStore({
-  //    USER: {authorizationStatus: AuthorizationStatus.AUTH},
-  //    DATA: {offers: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true},
-  //  })
-//
-  //  render(
-  //    <Provider store={store}>
-  //      <Router history={history}>
-  //        <Switch>
-  //          <Route>
-  //            <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} />
-  //          </Route>
-  //          <Route exact path={AppRoute.SIGNIN}>
-  //            <h1>Login screen</h1>
-  //          </Route>
-  //        </Switch>
-  //      </Router>
-  //    </Provider>
-  //  )
-//
-  //  userEvent.click(screen.getByRole('button'));
-  //  expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();
-  //  expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
-  //});
+  it('should not redirect when user clicked on button with Auth', () => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      DATA: {offers: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true},
+    })
+
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Switch>
+            <Route>
+              <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
+            </Route>
+            <Route exact path={AppRoute.SIGNIN}>
+              <h1>Login screen</h1>
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
+    )
+
+    userEvent.click(screen.getByRole('button'));
+    expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
+
+    expect(useDispatch).toBeCalledTimes(1);
+  });
 });
 

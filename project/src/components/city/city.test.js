@@ -5,6 +5,7 @@ import {Router} from 'react-router-dom';
 import City from './city.jsx';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
+import userEvent from '@testing-library/user-event';
 
 let store;
 let history;
@@ -32,5 +33,20 @@ describe('Component: City', () => {
     )
 
     expect(screen.getByText(/Paris/i)).toBeInTheDocument();
+  });
+
+  it('should switch city', () => {
+    const city = 'Paris';
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <City city={city} isActive={true} onClick={jest.fn()}/>
+        </Router>
+      </Provider>
+    )
+
+    expect(screen.getByText(/Paris/i)).toBeInTheDocument();
+    userEvent.click(screen.getByText(/Paris/i));
   });
 });

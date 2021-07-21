@@ -72,12 +72,12 @@ describe('Component: FavoriteCard', () => {
   });
 
   it('should render with 0 favoriteOffers', () => {
-    const currentCity = 'Amsterdam';
+    const currentCity = 'Paris';
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <FavoriteCard favoriteOffers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} currentCity={currentCity}/>
+          <FavoriteCard favoriteOffers={[]} currentCity={currentCity}/>
         </Router>
       </Provider>
     )
