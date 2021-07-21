@@ -88,31 +88,31 @@ describe('Component: Card', () => {
     expect(onOfferHover).toBeCalled();
   });
 
-  //it('should redirect when user clicked on button without Auth', () => {
-//
-//    store = mockStore({
-//      USER: {activeCity: 'Paris', authorizationStatus: AuthorizationStatus.NO_AUTH},
-//      DATA: {offers: MOCK_OFFERS},
-//    });
+  it('should redirect when user clicked on button without Auth', () => {
+    store = mockStore({
+      USER: {activeCity: 'Paris', authorizationStatus: AuthorizationStatus.NO_AUTH},
+      DATA: {offers: MOCK_OFFERS},
+    })
 
-//    history.push(AppRoute.MAIN);
-//    render(
-//      <Provider store={store}>
-//        <Router history={history}>
-//          <Switch>
-//            <Card offers={adaptOffersToClient(MOCK_OFFERS)} isNearby={true} />
-//            <Route exact path={AppRoute.SIGNIN}>
-//              <SignIn />
-//            </Route>
-//          </Switch>
-//        </Router>
-//      </Provider>
-//    )
+    history.push(AppRoute.MAIN);
 
-//    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
-//    userEvent.click(screen.getByRole('button'));
-//    expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
-//  });
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Switch>
+            <Card offers={adaptOffersToClient(MOCK_OFFERS)} isNearby={true} />
+            <Route exact path={AppRoute.SIGNIN}>
+              <h1>Login screen</h1>
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
+    )
+
+    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
+    userEvent.click(screen.getByRole('button'));
+    //expect(screen.getByText(/Login screen/i)).toBeInTheDocument();
+  });
 
   it('should not redirect when user clicked on button with Auth', () => {
 

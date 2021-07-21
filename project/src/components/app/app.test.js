@@ -6,6 +6,8 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {AuthorizationStatus, AppRoute} from '../../const.js';
 import App from './app.jsx';
+import thunk from 'redux-thunk'
+import { adaptOffersToClient } from '../../adapter.js';
 
 let history = null;
 let store = null;
@@ -85,11 +87,12 @@ describe('Application Routing', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
-    const createFakeStore = configureStore({});
+    const middlewares = [thunk]
+    const createFakeStore = configureStore(middlewares);
 
     store = createFakeStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offers: MOCK_OFFERS, favoriteOffers: MOCK_OFFERS, room: MOCK_OFFER, isDataLoaded: true},
+      DATA: {offers: MOCK_OFFERS, favoriteOffers: MOCK_OFFERS, offersNearby: MOCK_OFFERS, room: MOCK_OFFER, reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
 
@@ -124,12 +127,12 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 
-  //it('should render "Room" when user navigate to "/room"', () => {
-  //  history.push(AppRoute.ROOM);
-  //  render(fakeApp);
-  //
-  //  expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
-  //});
+  it('should render "Room" when user navigate to "/room"', () => {
+    history.push(AppRoute.ROOM);
+    render(fakeApp);
+
+    expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
+  });
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');

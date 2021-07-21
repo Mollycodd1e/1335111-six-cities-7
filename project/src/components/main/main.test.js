@@ -31,7 +31,7 @@ const MOCK_OFFERS = [{
   },
   "id": 1,
   "images": ["img/1.png", "img/2.png"],
-  "is_favorite": false,
+  "is_favorite": true,
   "is_premium": false,
   "location": {
     "latitude": 52.35514938496378,
@@ -58,6 +58,7 @@ describe('Component: Main', () => {
   });
 
   it('should render correctly', () => {
+
     render(
       <Provider store={store}>
         <Router history={history}>

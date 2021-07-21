@@ -6,12 +6,14 @@ import Favorites from './favorites';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import { AuthorizationStatus } from '../../const';
+import { adaptOffersToClient } from '../../adapter';
 
 let store;
 let history;
+const mockStore = configureStore({});
 
 const MOCK_OFFERS = [{
-  "bedrooms": 3,
+  'bedrooms': 3,
   "city": {
     "location": {
       "latitude": 52.370216,
@@ -22,15 +24,14 @@ const MOCK_OFFERS = [{
   },
   "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
   "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
-  "host": {
-    "avatar_url": "img/1.png",
+  host : {
     "id": 3,
     "is_pro": true,
     "name": "Angelina"
   },
   "id": 1,
   "images": ["img/1.png", "img/2.png"],
-  "is_favorite": false,
+  "is_favorite": true,
   "is_premium": false,
   "location": {
     "latitude": 52.35514938496378,
@@ -49,25 +50,25 @@ describe('Component: Favorites', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
-    const createFakeStore = configureStore({});
-
-    store = createFakeStore({
+    store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {favoriteOffers: MOCK_OFFERS},
+      DATA: {offers: MOCK_OFFERS, favoriteOffers: MOCK_OFFERS},
+      CHANGER: {activeCity: 'Paris'},
     });
   });
 
   it('should render correctly', () => {
 
+    const currentCity = 'Paris';
+
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Favorites favoriteOffers={MOCK_OFFERS}/>
+          <Favorites favoriteOffers={MOCK_OFFERS} currentCity={currentCity}/>
         </Router>
       </Provider>
     )
 
-    expect(screen.getByText(/night/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/Place image/i)).toBeInTheDocument();
+    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 });

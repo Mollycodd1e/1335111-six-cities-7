@@ -29,7 +29,7 @@ const MOCK_OFFERS = [{
   },
   "id": 1,
   "images": ["img/1.png", "img/2.png"],
-  "is_favorite": false,
+  "is_favorite": true,
   "is_premium": false,
   "location": {
     "latitude": 52.35514938496378,
@@ -51,7 +51,7 @@ describe('Component: FavoriteCard', () => {
     const createFakeStore = configureStore({});
 
     store = createFakeStore({
-      DATA: {favoriteOffers: MOCK_OFFERS},
+      DATA: {favoriteOffers: MOCK_OFFERS, isFavoriteDataLoaded: true},
     });
   });
 
