@@ -8,7 +8,6 @@ import configureStore from 'redux-mock-store';
 import {AppRoute, AuthorizationStatus} from '../../const.js';
 import {adaptOfferToClient} from '../../adapter.js';
 import {createMemoryHistory} from 'history';
-import * as Redux from 'react-redux';
 //import SignIn from '../sign-in/sign-in.jsx';
 
 let store;
