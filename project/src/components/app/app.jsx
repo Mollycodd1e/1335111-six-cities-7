@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {isCheckedAuth} from '../../utils.js';
 import Main from '../main/main.jsx';
@@ -25,24 +25,22 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={AppRoute.MAIN}>
-          <Main />
-        </Route>
-        <Route exact path={AppRoute.SIGNIN}>
-          <SignIn />
-        </Route>
-        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites />}>
-        </PrivateRoute>
-        <Route exact path={AppRoute.ROOM}>
-          <Room />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.MAIN}>
+        <Main />
+      </Route>
+      <Route exact path={AppRoute.SIGNIN}>
+        <SignIn />
+      </Route>
+      <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites />}>
+      </PrivateRoute>
+      <Route exact path={AppRoute.ROOM}>
+        <Room />
+      </Route>
+      <Route>
+        <NotFoundPage />
+      </Route>
+    </Switch>
   );
 }
 
