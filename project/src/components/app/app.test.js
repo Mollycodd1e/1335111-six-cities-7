@@ -7,80 +7,80 @@ import configureStore from 'redux-mock-store';
 import {AuthorizationStatus, AppRoute} from '../../const.js';
 import App from './app.jsx';
 import thunk from 'redux-thunk'
-import { adaptOffersToClient } from '../../adapter.js';
+import {adaptOffersToClient, adaptOfferToClient} from '../../adapter.js';
 
 let history = null;
 let store = null;
 let fakeApp = null;
 
 const MOCK_OFFERS = [{
-  "bedrooms": 3,
-  "city": {
-    "location": {
-      "latitude": 52.370216,
-      "longitude": 4.895168,
-      "zoom": 10
+  bedrooms: 3,
+  city: {
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10
     },
-    "name": "Amsterdam"
+    name: "Amsterdam"
   },
-  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
-  "host": {
-    "avatar_url": "img/1.png",
-    "id": 3,
-    "is_pro": true,
-    "name": "Angelina"
+  description: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+  goods: ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
+  host: {
+    avatar_url: "img/1.png",
+    id: 3,
+    is_pro: true,
+    name: "Angelina"
   },
-  "id": 1,
-  "images": ["img/1.png", "img/2.png"],
-  "is_favorite": false,
-  "is_premium": false,
-  "location": {
-    "latitude": 52.35514938496378,
-    "longitude": 4.673877537499948,
-    "zoom": 8
+  id: 1,
+  images: ["img/1.png", "img/2.png"],
+  is_favorite: false,
+  is_premium: false,
+  location: {
+    latitude: 52.35514938496378,
+    longitude: 4.673877537499948,
+    zoom: 8
   },
-  "max_adults": 4,
-  "preview_image": "img/1.png",
-  "price": 120,
-  "rating": 4.8,
-  "title": "Beautiful & luxurious studio at great location",
-  "type": "apartment"
+  max_adults: 4,
+  preview_image: "img/1.png",
+  price: 120,
+  rating: 4.8,
+  title: "Beautiful & luxurious studio at great location",
+  type: "apartment"
 }];
 
 const MOCK_OFFER = {
-  "bedrooms": 3,
-  "city": {
-    "location": {
-      "latitude": 52.370216,
-      "longitude": 4.895168,
-      "zoom": 10
+  bedrooms: 3,
+  city: {
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10
     },
-    "name": "Amsterdam"
+    name: "Amsterdam"
   },
-  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
-  "host": {
-    "avatar_url": "img/1.png",
-    "id": 3,
-    "is_pro": true,
-    "name": "Angelina"
+  description: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+  goods: ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
+  host: {
+    avatar_url: "img/1.png",
+    id: 3,
+    is_pro: true,
+    name: "Angelina"
   },
-  "id": 1,
-  "images": ["img/1.png", "img/2.png"],
-  "is_favorite": false,
-  "is_premium": false,
-  "location": {
-    "latitude": 52.35514938496378,
-    "longitude": 4.673877537499948,
-    "zoom": 8
+  id: 1,
+  images: ["img/1.png", "img/2.png"],
+  is_favorite: false,
+  is_premium: false,
+  location: {
+    latitude: 52.35514938496378,
+    longitude: 4.673877537499948,
+    zoom: 8
   },
-  "max_adults": 4,
-  "preview_image": "img/1.png",
-  "price": 120,
-  "rating": 4.8,
-  "title": "Beautiful & luxurious studio at great location",
-  "type": "apartment"
+  max_adults: 4,
+  preview_image: "img/1.png",
+  price: 120,
+  rating: 4.8,
+  title: "Beautiful & luxurious studio at great location",
+  type: "apartment"
 };
 
 describe('Application Routing', () => {
@@ -92,7 +92,7 @@ describe('Application Routing', () => {
 
     store = createFakeStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offers: MOCK_OFFERS, favoriteOffers: MOCK_OFFERS, offersNearby: MOCK_OFFERS, room: MOCK_OFFER, reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), favoriteOffers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
 
@@ -127,12 +127,12 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 
-  it('should render "Room" when user navigate to "/room"', () => {
-    history.push(AppRoute.ROOM);
-    render(fakeApp);
-
-    expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
-  });
+  //it('should render "Room" when user navigate to "/room"', () => {
+  //  history.push(AppRoute.ROOM);
+  //  render(fakeApp);
+//
+  //  expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
+  //});
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');

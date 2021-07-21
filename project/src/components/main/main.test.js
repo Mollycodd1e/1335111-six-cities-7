@@ -6,44 +6,45 @@ import Main from './main.jsx';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {AuthorizationStatus} from '../../const.js';
+import {adaptOffersToClient} from '../../adapter.js';
 
 let history;
 let store;
 const mockStore = configureStore({});
 
 const MOCK_OFFERS = [{
-  "bedrooms": 3,
-  "city": {
-    "location": {
-      "latitude": 52.370216,
-      "longitude": 4.895168,
-      "zoom": 10
+  bedrooms: 3,
+  city: {
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10
     },
-    "name": "Paris"
+    name: "Paris"
   },
-  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  "goods": ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
-  "host": {
-    "avatar_url": "img/1.png",
-    "id": 3,
-    "is_pro": true,
-    "name": "Angelina"
+  description: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+  goods: ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
+  host: {
+    avatar_url: "img/1.png",
+    id: 3,
+    is_pro: true,
+    name: "Angelina"
   },
-  "id": 1,
-  "images": ["img/1.png", "img/2.png"],
-  "is_favorite": true,
-  "is_premium": false,
-  "location": {
-    "latitude": 52.35514938496378,
-    "longitude": 4.673877537499948,
-    "zoom": 8
+  id: 1,
+  images: ["img/1.png", "img/2.png"],
+  is_favorite: true,
+  is_premium: false,
+  location: {
+    latitude: 52.35514938496378,
+    longitude: 4.673877537499948,
+    zoom: 8
   },
-  "max_adults": 4,
-  "preview_image": "img/1.png",
-  "price": 120,
-  "rating": 4.8,
-  "title": "Beautiful & luxurious studio at great location",
-  "type": "apartment"
+  max_adults: 4,
+  preview_image: "img/1.png",
+  price: 120,
+  rating: 4.8,
+  title: "Beautiful & luxurious studio at great location",
+  type: "apartment"
 }];
 
 describe('Component: Main', () => {
@@ -52,7 +53,7 @@ describe('Component: Main', () => {
 
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: MOCK_OFFERS, isDataLoaded: true},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), isDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
   });
@@ -62,7 +63,7 @@ describe('Component: Main', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Main offers={MOCK_OFFERS}/>
+          <Main offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}/>
         </Router>
       </Provider>
     );
@@ -73,14 +74,14 @@ describe('Component: Main', () => {
   it('should render correctly with/o offers with activeCity', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: MOCK_OFFERS, isDataLoaded: true},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), isDataLoaded: true},
       CHANGER: {activeCity: 'Hamburg', sortType: 'Popular'},
     });
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Main offers={MOCK_OFFERS}/>
+          <Main offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}/>
         </Router>
       </Provider>
     );
