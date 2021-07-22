@@ -71,4 +71,22 @@ describe('Component: OffersList', () => {
     expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();
     expect(screen.getByText(/apartment/i)).toBeInTheDocument();
   });
+
+  it('should render correctly without offers', () => {
+
+    store = mockStore({
+      DATA: {offers: [], isDataLoaded: true},
+    });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <OffersList offers={[]} isNearby={false}/>
+        </Router>
+      </Provider>
+    );
+
+    expect(screen.queryByText(/Beautiful & luxurious studio at great location/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/apartment/i)).not.toBeInTheDocument();
+  });
 });

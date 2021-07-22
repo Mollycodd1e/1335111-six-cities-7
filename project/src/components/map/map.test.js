@@ -3,6 +3,7 @@ import React from 'react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import Map from '../map/map.jsx';
+import useMap from '../map/use-map.jsx';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {AuthorizationStatus} from '../../const.js';
@@ -95,7 +96,7 @@ describe('Component: Map', () => {
 
   it('should render correctly', () => {
 
-    render(
+    const {container} = render(
       <Provider store={store}>
         <Router history={history}>
           <Map offers={ MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
@@ -104,5 +105,26 @@ describe('Component: Map', () => {
     );
 
     expect(screen.getByText(/Leaflet/i)).toBeInTheDocument();
+    expect(container.querySelector('.leaflet-container')).toBeInTheDocument();
   });
+
+  //it('should render correctly with city position', () => {
+  //  const map = jest.fn();
+  //  map.setView = jest.fn();
+  //  map.addLayer = jest.fn();
+  //  const cityLocation = MOCK_OFFERS[0].city.location;
+  //  const useMapSpy = jest.spyOn(useMap, 'useMap');
+  //  useMapSpy.mockReturnValue(map);
+//
+  //  render(
+  //    <Provider store={store}>
+  //      <Router history={history}>
+  //        <Map offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
+  //      </Router>
+  //    </Provider>,
+  //  );
+//
+  //  expect(map.setView).toBeCalled();
+  //  expect(map.setView).nthCalledWith(1, [cityLocation.latitude, cityLocation.longitude]);
+  //});
 });

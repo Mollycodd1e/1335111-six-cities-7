@@ -111,6 +111,7 @@ describe('Component: Card', () => {
 
     expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
+    expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
   });
 
   it('should not redirect when user clicked on button with Auth', () => {

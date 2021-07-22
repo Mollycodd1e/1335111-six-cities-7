@@ -72,4 +72,25 @@ describe('Component: Favorites', () => {
 
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
+
+  it('should render correctly without favoriteOffers', () => {
+
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+      DATA: {offers: [], favoriteOffers: []},
+      CHANGER: {activeCity: 'Paris'},
+    });
+
+    const currentCity = 'Paris';
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Favorites favoriteOffers={[]} currentCity={currentCity}/>
+        </Router>
+      </Provider>
+    )
+
+    expect(screen.getByText(/Nothing yet saved./i)).toBeInTheDocument();
+  });
 });
