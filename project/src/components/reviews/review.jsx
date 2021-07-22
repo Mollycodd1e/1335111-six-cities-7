@@ -3,7 +3,7 @@ import reviewProp from '../offersList/review.prop.jsx';
 
 function Review (props) {
 
-  const {review} = props;
+  const {review = {}} = props;
 
   return (
     <li className="reviews__item">

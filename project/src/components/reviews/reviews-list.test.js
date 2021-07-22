@@ -49,4 +49,16 @@ describe('Component: ReviewList', () => {
     expect(screen.getByAltText(/Reviews avatar/i)).toBeInTheDocument();
   });
 
+  it('should render correctly without reviews', () => {
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <ReviewsList reviews={[]} />
+        </Router>
+      </Provider>
+    );
+
+    expect(screen.queryByText(/Reviews/i)).not.toBeInTheDocument();
+  });
 });
