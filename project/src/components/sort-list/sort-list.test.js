@@ -22,10 +22,12 @@ describe('Component: SortList', () => {
   it('should render correctly', () => {
     const sortType = 'Popular';
 
+    const handleSortTypeChange = jest.fn();
+
     render(
       <Provider store={store}>
         <Router history={history}>
-          <SortList sortType={sortType} onSortChange={jest.fn()}/>
+          <SortList sortType={sortType} onSortChange={handleSortTypeChange}/>
         </Router>
       </Provider>
     );
