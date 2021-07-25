@@ -3,7 +3,10 @@ import reviewProp from '../offersList/review.prop.jsx';
 
 function Review (props) {
 
-  const {review} = props;
+  const {review = {}} = props;
+
+  const dateYear = new Date(review.date).getFullYear(review.date);
+  const dateMonth= new Date(review.date).toLocaleString('en-En', { month: 'long' });
 
   return (
     <li className="reviews__item">
@@ -25,7 +28,7 @@ function Review (props) {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
+        <time className="reviews__time" dateTime="YYYY-MM-DD">{dateMonth} {dateYear}</time>
       </div>
     </li>
   );

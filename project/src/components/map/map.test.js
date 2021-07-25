@@ -1,17 +1,17 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
+import Map from '../map/map.jsx';
+import useMap from '../map/use-map.jsx';
 import configureStore from 'redux-mock-store';
-import {AuthorizationStatus, AppRoute} from '../../const.js';
-import App from './app.jsx';
-import thunk from 'redux-thunk'
+import {Provider} from 'react-redux';
+import {AuthorizationStatus} from '../../const.js';
 import {adaptOffersToClient, adaptOfferToClient} from '../../adapter.js';
 
-let history = null;
-let store = null;
-let fakeApp = null;
+let history;
+let store;
+const mockStore = configureStore({});
 
 const MOCK_OFFERS = [{
   bedrooms: 3,
@@ -83,62 +83,48 @@ const MOCK_OFFER = {
   type: "apartment"
 };
 
-describe('Application Routing', () => {
+describe('Component: Map', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
-    const middlewares = [thunk]
-    const createFakeStore = configureStore(middlewares);
-
-    store = createFakeStore({
-      USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), favoriteOffers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true, isRoomDataLoaded: true,},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
+  });
 
-    fakeApp = (
+  it('should render correctly', () => {
+
+    const {container} = render(
       <Provider store={store}>
         <Router history={history}>
-          <App />
+          <Map offers={ MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
         </Router>
       </Provider>
     );
+
+    expect(screen.getByText(/Leaflet/i)).toBeInTheDocument();
+    expect(container.querySelector('.leaflet-container')).toBeInTheDocument();
   });
 
-  it('should render "Main" when user navigate to "/"', () => {
-    history.push(AppRoute.MAIN);
-    render(fakeApp);
-
-    expect(screen.getByText(/Paris/i)).toBeInTheDocument();
-  });
-
-  it('should render "SignIn" when user navigate to "/login"', () => {
-    history.push(AppRoute.SIGNIN);
-    render(fakeApp);
-
-    expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
-  });
-
-  it('should render "Favorite" when user navigate to "/favorites"', () => {
-    history.push(AppRoute.FAVORITES);
-    render(fakeApp);
-
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-  });
-
-  //it('should render "Room" when user navigate to "/room"', () => {
-  //  history.push(AppRoute.ROOM);
-  //  render(fakeApp);
+  //it('should render correctly with city position', () => {
+  //  const map = jest.fn();
+  //  map.setView = jest.fn();
+  //  map.addLayer = jest.fn();
+  //  const cityLocation = MOCK_OFFERS[0].city.location;
+  //  const useMapSpy = jest.spyOn(useMap, 'useMap');
+  //  useMapSpy.mockReturnValue(map);
 //
-  //  expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
+  //  render(
+  //    <Provider store={store}>
+  //      <Router history={history}>
+  //        <Map offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
+  //      </Router>
+  //    </Provider>,
+  //  );
+//
+  //  expect(map.setView).toBeCalled();
+  //  expect(map.setView).nthCalledWith(1, [cityLocation.latitude, cityLocation.longitude]);
   //});
-
-  it('should render "NotFoundPage" when user navigate to non-existent route', () => {
-    history.push('/non-existent-route');
-    render(fakeApp);
-
-    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-    expect(screen.getByText('Вернуться на главную')).toBeInTheDocument();
-  });
 });

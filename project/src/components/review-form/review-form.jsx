@@ -21,7 +21,7 @@ function ReviewForm(props) {
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => onFormSubmit(evt)}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating" setRating>
+      <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={(evt) => setRating(Number(evt.target.value))}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -53,7 +53,7 @@ function ReviewForm(props) {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" minLength="50" maxLength="300" placeholder="Tell how was your stay, what you like and what can be improved"
         value={review} onChange={(evt) => setReview(evt.target.value)}
       >
       </textarea>
@@ -61,7 +61,7 @@ function ReviewForm(props) {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={(review.length <= 50) || (review.length >= 300) || (rating === null) ? 'false' : ''}>Submit</button>
       </div>
     </form>
   );

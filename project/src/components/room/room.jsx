@@ -3,8 +3,8 @@ import {useParams} from 'react-router';
 import Header from '../header/header.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
-import ReviewsForm from '../reviews-form/reviews-form.jsx';
-import ReviewsList from '../reviews/review-list.jsx';
+import ReviewForm from '../review-form/review-form.jsx';
+import ReviewsList from '../reviews/reviews-list.jsx';
 import {AuthorizationStatus} from '../../const.js';
 import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
@@ -126,7 +126,7 @@ function Room () {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <ReviewsForm roomId={room.id}/> : ''}
+                  <ReviewForm roomId={room.id}/> : ''}
               </section>
             </div>
           </div>
