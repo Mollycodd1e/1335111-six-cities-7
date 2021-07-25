@@ -5,13 +5,6 @@ export const AppRoute = {
   MAIN: '/',
 };
 
-export const HouseType = {
-  APARTMENT: 'apartment',
-  ROOM: 'room',
-  house: 'house',
-  hotel: 'hotel',
-};
-
 export const CITIES = [
   'Paris',
   'Cologne',

@@ -3,14 +3,16 @@ import React from 'react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import Room from '../room/room.jsx';
-import configureMockStore from 'redux-mock-store';
+import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {adaptOffersToClient, adaptOfferToClient, adaptReviewsToClient} from '../../adapter.js';
 import {AuthorizationStatus} from '../../const.js';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
+import {createAPI} from '../../components/services/api.js';
 
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+let api = null;
+api = createAPI(() => {});
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
 let history;
 let store;
@@ -110,55 +112,42 @@ describe('Component: Room', () => {
     });
   });
 
-  it('should render correctly', () => {
+  it('should render correctly with AUTH', () => {
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
+            offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
+          />
+        </Router>
+      </Provider>
+    )
+
+    expect(screen.getByText(/Bedrooms/i)).toBeInTheDocument();
+    expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
+    expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
+    expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();
+  });
+
+  it('should render correctly without AUTH', () => {
+
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
+      DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER),
+        reviews: MOCK_REVIEWS.map((review) => adaptReviewsToClient(review)), isDataLoaded: true, isRoomDataLoaded: true, isFavoriteDataLoaded: true},
+      CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
+    });
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <h1>Hi</h1>
+          <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
+            offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
+          />
         </Router>
       </Provider>
     );
 
-    expect(screen.getByText(/Hi/i)).toBeInTheDocument();
+    expect(screen.queryByText(/To submit review please make sure to set/i)).not.toBeInTheDocument();
   });
-
-    //it('should render correctly', () => {
-//
-  //  render(
-  //    <Provider store={store}>
-  //      <Router history={history}>
-  //        <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
-  //          offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
-  //        />
-  //      </Router>
-  //    </Provider>
-  //  );
-//
-  //  expect(screen.getByText(/Bedrooms/i)).toBeInTheDocument();
-  //  expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
-  //  expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
-  //});
-  //
-  //it('should render correctly without AUTH', () => {
-//
-  //  store = mockStore({
-  //    USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-  //    DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER),
-  //      reviews: MOCK_REVIEWS.map((review) => adaptReviewsToClient(review)), isDataLoaded: true, isRoomDataLoaded: true, isFavoriteDataLoaded: true},
-  //    CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
-  //  });
-//
-  //  render(
-  //    <Provider store={store}>
-  //      <Router history={history}>
-  //        <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
-  //          offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
-  //        />
-  //      </Router>
-  //    </Provider>
-  //  );
-//
-  //  expect(screen.getByText(/To submit review please make sure to set/i)).not.toBeInTheDocument();
-  //});
 });

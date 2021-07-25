@@ -8,10 +8,14 @@ import {AuthorizationStatus, AppRoute} from '../../const.js';
 import App from './app.jsx';
 import thunk from 'redux-thunk'
 import {adaptOffersToClient, adaptOfferToClient} from '../../adapter.js';
+import {createAPI} from '../services/api.js';
 
 let history = null;
 let store = null;
 let fakeApp = null;
+let api = null;
+api = createAPI(() => {});
+const createFakeStore = configureStore([thunk.withExtraArgument(api)]);
 
 const MOCK_OFFERS = [{
   bedrooms: 3,
@@ -87,9 +91,6 @@ describe('Application Routing', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
-    const middlewares = [thunk]
-    const createFakeStore = configureStore(middlewares);
-
     store = createFakeStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
       DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), favoriteOffers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
@@ -127,12 +128,12 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
   });
 
-  //it('should render "Room" when user navigate to "/room"', () => {
-  //  history.push(AppRoute.ROOM);
-  //  render(fakeApp);
-//
-  //  expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
-  //});
+  it('should render "Room" when user navigate to "/room"', () => {
+    history.push(AppRoute.ROOM);
+    render(fakeApp);
+
+    expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
+  });
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');
