@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../header/header.jsx';
 import FavoriteCard from '../favorite-card/favorite-card.jsx';
 import {Link} from 'react-router-dom';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import {AppRoute, CITIES} from '../../const.js';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getFavoriteOffers} from '../../store/data/selectors.js';
+import { fetchFavoriteList } from '../../store/api-action.js';
 
 function Favorites () {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteList());
+  });
 
   const favoriteOffers = useSelector(getFavoriteOffers);
 

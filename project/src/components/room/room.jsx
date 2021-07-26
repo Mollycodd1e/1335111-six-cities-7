@@ -5,12 +5,13 @@ import Map from '../map/map.jsx';
 import OffersList from '../offersList/offers-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import ReviewsList from '../reviews/reviews-list.jsx';
-import {AuthorizationStatus} from '../../const.js';
-import {fetchReviews, fetchRoom, fetchOffersNearby} from '../../store/api-action.js';
+import {AppRoute, AuthorizationStatus} from '../../const.js';
+import {fetchReviews, fetchRoom, fetchOffersNearby, postFavorites, fetchFavoriteList} from '../../store/api-action.js';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import {useDispatch, useSelector} from 'react-redux';
 import {getOffersNearby, getReviews, getRoom, getRoomLoadStatus} from '../../store/data/selectors.js';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import {useHistory} from 'react-router-dom';
 
 function Room () {
 
@@ -18,16 +19,30 @@ function Room () {
 
   const {id} = useParams();
 
+  const history = useHistory();
+
   const offersNearby = useSelector(getOffersNearby);
   const reviews = useSelector(getReviews);
   const room = useSelector(getRoom);
   const isRoomDataLoaded = useSelector(getRoomLoadStatus);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
+  const status = room.isFavorite ? 0 : 1;
+
+  const handleFavoriteClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavorites(room.id , status));
+    dispatch(fetchOffersNearby(id)).then(() =>
+      dispatch(fetchRoom(id)));
+    dispatch(fetchReviews(id));
+    dispatch(fetchFavoriteList());
+  };
+
   useEffect(() => {
     dispatch(fetchOffersNearby(id)).then(() =>
       dispatch(fetchRoom(id)));
     dispatch(fetchReviews(id));
+    dispatch(fetchFavoriteList());
   }, [id]);
 
   if (!isRoomDataLoaded) {
@@ -63,7 +78,9 @@ function Room () {
                 <h1 className="property__name">
                   {room.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={room.isFavorite ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button"
+                  onClick={authorizationStatus === AuthorizationStatus.AUTH ? handleFavoriteClick : () => history.push(AppRoute.SIGNIN)}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

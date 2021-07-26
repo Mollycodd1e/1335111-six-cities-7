@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import Card from './card.jsx';
 import configureStore from 'redux-mock-store';
 import {AppRoute, AuthorizationStatus} from '../../const.js';
-import {adaptOfferToClient} from '../../adapter.js';
+import {adaptOffersToClient} from '../../adapter.js';
 import {createMemoryHistory} from 'history';
 import * as Redux from 'react-redux';
 
@@ -58,13 +58,13 @@ describe('Component: Card', () => {
   it('should render correctly', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: adaptOfferToClient(MOCK_OFFER)},
+      DATA: {offers: adaptOffersToClient(MOCK_OFFER)},
     });
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} onOfferHover={jest.fn()}/>
+          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onOfferHover={jest.fn()}/>
         </Router>
       </Provider>
     )
@@ -79,7 +79,7 @@ describe('Component: Card', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} onOfferHover={onOfferHover}/>
+          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onOfferHover={onOfferHover}/>
         </Router>
       </Provider>
     )
@@ -91,7 +91,7 @@ describe('Component: Card', () => {
   it('should redirect when user clicked on button without Auth', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true},
+      DATA: {offers: adaptOffersToClient(MOCK_OFFER), isDataLoaded: true},
     })
 
     history.push(AppRoute.MAIN);
@@ -100,7 +100,7 @@ describe('Component: Card', () => {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
-            <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
+            <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
             <Route exact path={AppRoute.SIGNIN}>
               <h1>Login screen</h1>
             </Route>
@@ -117,7 +117,7 @@ describe('Component: Card', () => {
   it('should not redirect when user clicked on button with Auth', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offers: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true},
+      DATA: {offers: adaptOffersToClient(MOCK_OFFER), isDataLoaded: true},
     })
 
     const dispatch = jest.fn();
@@ -129,7 +129,7 @@ describe('Component: Card', () => {
         <Router history={history}>
           <Switch>
             <Route>
-              <Card offers={adaptOfferToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
+              <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
             </Route>
             <Route exact path={AppRoute.SIGNIN}>
               <h1>Login screen</h1>

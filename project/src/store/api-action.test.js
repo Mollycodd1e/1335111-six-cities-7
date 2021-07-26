@@ -3,7 +3,7 @@ import {createAPI} from '../components/services/api.js';
 import {ActionType} from './action.js';
 import {checkAuth, fetchFavoriteList, fetchOffersList, fetchOffersNearby, fetchReviews, fetchRoom, login, postFavorites, postReview} from './api-action.js';
 import {APIRoute, AuthorizationStatus} from '../const.js';
-import {adaptOffersToClient, adaptOfferToClient, adaptReviewsToClient} from '../adapter.js';
+import {adaptOffersToClient, adaptReviewsToClient} from '../adapter.js';
 
 let api = null;
 
@@ -192,7 +192,7 @@ describe('Async operations', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_ROOM,
-          payload: adaptOfferToClient(MOCK_ROOM),
+          payload: adaptOffersToClient(MOCK_ROOM),
         });
       });
   });
@@ -254,7 +254,7 @@ describe('Async operations', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.CHANGE_FAVORITE_OFFERS,
-          payload: adaptOfferToClient(MOCK_ROOM),
+          payload: adaptOffersToClient(MOCK_ROOM),
         });
       });
   });

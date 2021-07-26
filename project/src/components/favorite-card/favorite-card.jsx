@@ -2,12 +2,22 @@ import React from 'react';
 import offersListProp from '../offersList/offers-list.prop';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {postFavorites } from '../../store/api-action';
 
 function FavoriteCard(props) {
+
+  const unfavoriteStatus = 0;
 
   const {favoriteOffers, currentCity} = props;
 
   const favoriteOffersByCity = favoriteOffers.filter((offer) => offer.city.name === currentCity);
+
+  const dispatch = useDispatch();
+
+  const handleFavoriteClick = (id) => {
+    dispatch(postFavorites(id , unfavoriteStatus));
+  };
 
   return (
     <li className="favorites__locations-items">
@@ -34,7 +44,9 @@ function FavoriteCard(props) {
                   <b className="place-card__price-value">&euro;{offer.price}</b>
                   <span className="place-card__price-text">&#47;&nbsp;night</span>
                 </div>
-                <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+                <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button"
+                  onClick={() => handleFavoriteClick(offer.id)}
+                >
                   <svg className="place-card__bookmark-icon" width="18" height="19">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

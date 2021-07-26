@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import Room from '../room/room.jsx';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import {adaptOffersToClient, adaptOfferToClient, adaptReviewsToClient} from '../../adapter.js';
+import {adaptOffersToClient, adaptReviewsToClient} from '../../adapter.js';
 import {AuthorizationStatus} from '../../const.js';
 import thunk from 'redux-thunk';
 import {createAPI} from '../../components/services/api.js';
@@ -106,7 +106,7 @@ describe('Component: Room', () => {
 
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER),
+      DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOffersToClient(MOCK_OFFER),
         reviews: MOCK_REVIEWS.map((review) => adaptReviewsToClient(review)), isDataLoaded: true, isRoomDataLoaded: true, isFavoriteDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
@@ -116,7 +116,7 @@ describe('Component: Room', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
+          <Room room={adaptOffersToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
             offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
           />
         </Router>
@@ -133,7 +133,7 @@ describe('Component: Room', () => {
 
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER),
+      DATA: {offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOffersToClient(MOCK_OFFER),
         reviews: MOCK_REVIEWS.map((review) => adaptReviewsToClient(review)), isDataLoaded: true, isRoomDataLoaded: true, isFavoriteDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
@@ -141,7 +141,7 @@ describe('Component: Room', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Room room={adaptOfferToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
+          <Room room={adaptOffersToClient(MOCK_OFFER)} reviews={MOCK_REVIEWS.map((review) => adaptReviewsToClient(review))}
             offersNearby={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))}
           />
         </Router>

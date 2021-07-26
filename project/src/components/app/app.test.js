@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import {AuthorizationStatus, AppRoute} from '../../const.js';
 import App from './app.jsx';
 import thunk from 'redux-thunk'
-import {adaptOffersToClient, adaptOfferToClient} from '../../adapter.js';
+import {adaptOffersToClient} from '../../adapter.js';
 import {createAPI} from '../services/api.js';
 
 let history = null;
@@ -93,7 +93,7 @@ describe('Application Routing', () => {
 
     store = createFakeStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
-      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), favoriteOffers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), favoriteOffers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), offersNearby: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOffersToClient(MOCK_OFFER), reviews: [], isRoomDataLoaded: true, isDataLoaded: true, isFavoriteDataLoaded: true},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
 

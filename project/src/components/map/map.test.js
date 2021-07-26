@@ -3,11 +3,11 @@ import React from 'react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import Map from '../map/map.jsx';
-import useMap from '../map/use-map.jsx';
+//import useMap from '../map/use-map.jsx';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {AuthorizationStatus} from '../../const.js';
-import {adaptOffersToClient, adaptOfferToClient} from '../../adapter.js';
+import {adaptOffersToClient} from '../../adapter.js';
 
 let history;
 let store;
@@ -89,7 +89,7 @@ describe('Component: Map', () => {
 
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
-      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOfferToClient(MOCK_OFFER), isDataLoaded: true, isRoomDataLoaded: true,},
+      DATA: {offers: MOCK_OFFERS.map((offer) => adaptOffersToClient(offer)), room: adaptOffersToClient(MOCK_OFFER), isDataLoaded: true, isRoomDataLoaded: true,},
       CHANGER: {activeCity: 'Paris', sortType: 'Popular'},
     });
   });
@@ -99,7 +99,7 @@ describe('Component: Map', () => {
     const {container} = render(
       <Provider store={store}>
         <Router history={history}>
-          <Map offers={ MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
+          <Map offers={ MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOffersToClient(MOCK_OFFER)}/>
         </Router>
       </Provider>
     );
@@ -119,7 +119,7 @@ describe('Component: Map', () => {
   //  render(
   //    <Provider store={store}>
   //      <Router history={history}>
-  //        <Map offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOfferToClient(MOCK_OFFER)}/>
+  //        <Map offers={MOCK_OFFERS.map((offer) => adaptOffersToClient(offer))} room={adaptOffersToClient(MOCK_OFFER)}/>
   //      </Router>
   //    </Provider>,
   //  );

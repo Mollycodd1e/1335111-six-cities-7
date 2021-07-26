@@ -7,10 +7,15 @@ import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import {AuthorizationStatus} from '../../const';
 import {adaptOffersToClient} from '../../adapter';
+import {createAPI} from '../services/api';
+import thunk from 'redux-thunk';
 
 let store;
 let history;
-const mockStore = configureStore({});
+
+let api = null;
+api = createAPI(() => {});
+const mockStore = configureStore([thunk.withExtraArgument(api)]);
 
 const MOCK_OFFERS = [{
   bedrooms: 3,
