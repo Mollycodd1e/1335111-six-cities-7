@@ -20,40 +20,41 @@ const MOCK_OFFER = {
     location: {
       latitude: 52.370216,
       longitude: 4.895168,
-      zoom: 10
+      zoom: 10,
     },
-    name: "Amsterdam"
+    name: 'Amsterdam',
   },
-  description: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  goods: ["Heating", "Kitchen", "Cable TV", "Washing machine", "Coffee machine", "Dishwasher"],
+  description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
   host: {
-    avatar_url: "img/1.png",
+    'avatar_url': 'img/1.png',
     id: 3,
-    is_pro: true,
-    name: "Angelina"
+    'is_pro': true,
+    name: 'Angelina',
   },
   id: 1,
-  images: ["img/1.png", "img/2.png"],
-  is_favorite: false,
-  is_premium: false,
+  images: ['img/1.png', 'img/2.png'],
+  'is_favorite': false,
+  'is_premium': false,
   location: {
     latitude: 52.35514938496378,
     longitude: 4.673877537499948,
-    zoom: 8
+    zoom: 8,
   },
-  max_adults: 4,
-  preview_image: "img/1.png",
+  'max_adults': 4,
+  'preview_image': 'img/1.png',
   price: 120,
   rating: 4.8,
-  title: "Beautiful & luxurious studio at great location",
-  type: "apartment"
+  title: 'Beautiful & luxurious studio at great location',
+  type: 'apartment',
 };
+
 
 describe('Component: Card', () => {
   beforeAll(() => {
     mockStore = configureStore({});
     history = createMemoryHistory();
-  })
+  });
 
   it('should render correctly', () => {
     store = mockStore({
@@ -64,10 +65,10 @@ describe('Component: Card', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onOfferHover={jest.fn()}/>
+          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby onOfferHover={jest.fn()}/>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.getByText(/night/i)).toBeInTheDocument();
     expect(screen.getByAltText(/Place image/i)).toBeInTheDocument();
@@ -79,10 +80,10 @@ describe('Component: Card', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onOfferHover={onOfferHover}/>
+          <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby onOfferHover={onOfferHover}/>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     userEvent.hover(screen.getByLabelText('article'));
     expect(onOfferHover).toBeCalled();
@@ -92,7 +93,7 @@ describe('Component: Card', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
       DATA: {offers: adaptOffersToClient(MOCK_OFFER), isDataLoaded: true},
-    })
+    });
 
     history.push(AppRoute.MAIN);
 
@@ -100,14 +101,14 @@ describe('Component: Card', () => {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
-            <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
+            <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby onClick={() => history.push(AppRoute.SIGNIN)}/>
             <Route exact path={AppRoute.SIGNIN}>
               <h1>Login screen</h1>
             </Route>
           </Switch>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.queryByText(/Login screen/i)).not.toBeInTheDocument();
     userEvent.click(screen.getByRole('button'));
@@ -118,7 +119,7 @@ describe('Component: Card', () => {
     store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.AUTH},
       DATA: {offers: adaptOffersToClient(MOCK_OFFER), isDataLoaded: true},
-    })
+    });
 
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
@@ -129,15 +130,15 @@ describe('Component: Card', () => {
         <Router history={history}>
           <Switch>
             <Route>
-              <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby={true} onClick={() => history.push(AppRoute.SIGNIN)}/>
+              <Card offers={adaptOffersToClient(MOCK_OFFER)} isNearby onClick={() => history.push(AppRoute.SIGNIN)}/>
             </Route>
             <Route exact path={AppRoute.SIGNIN}>
               <h1>Login screen</h1>
             </Route>
           </Switch>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     userEvent.click(screen.getByRole('button'));
     expect(screen.getByText(/Beautiful & luxurious studio at great location/i)).toBeInTheDocument();

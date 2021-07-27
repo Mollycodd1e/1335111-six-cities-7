@@ -13,16 +13,16 @@ let store;
 const mockStore = configureStore({});
 
 const MOCK_REVIEWS = {
-  comment: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  date: "2019-05-08T14:13:56.569Z",
+  comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  date: '2019-05-08T14:13:56.569Z',
   id: 1,
   rating: 4,
   user: {
-    avatar_url: "img/1.png",
+    'avatar_url': 'img/1.png',
     id: 4,
-    is_pro: false,
-    name: "Max"
-  }
+    'is_pro': false,
+    name: 'Max',
+  },
 };
 
 describe('Component: Review', () => {
@@ -43,7 +43,7 @@ describe('Component: Review', () => {
         <Router history={history}>
           <Review review={adaptReviewsToClient(MOCK_REVIEWS)} />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByAltText(/Reviews avatar/i)).toBeInTheDocument();

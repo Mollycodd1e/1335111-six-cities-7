@@ -29,7 +29,7 @@ describe('Component: SortList', () => {
         <Router history={history}>
           <SortList sortType={sortType} onSortChange={handleSortTypeChange}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Sort by/i)).toBeInTheDocument();

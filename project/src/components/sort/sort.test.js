@@ -28,7 +28,7 @@ describe('Component: Sort', () => {
         <Router history={history}>
           <Sort sortType={sortType} isActive onSortChange={jest.fn()}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Popular/i)).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('Component: Sort', () => {
         <Router history={history}>
           <Sort sortType={sortType} isActive onSortChange={handleSortTypeChange}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     userEvent.click(screen.getByText('Top rated first'));

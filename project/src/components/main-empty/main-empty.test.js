@@ -30,7 +30,7 @@ describe('Component: MainEmpty', () => {
         <Router history={history}>
           <MainEmpty offers={MOCK_OFFERS}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/No places to stay available/i)).toBeInTheDocument();

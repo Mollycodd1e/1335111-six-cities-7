@@ -13,16 +13,16 @@ let store;
 const mockStore = configureStore({});
 
 const MOCK_REVIEWS = [{
-  comment: "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
-  date: "2019-05-08T14:13:56.569Z",
+  comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  date: '2019-05-08T14:13:56.569Z',
   id: 1,
   rating: 4,
   user: {
-    avatar_url: "img/1.png",
+    'avatar_url': 'img/1.png',
     id: 4,
-    is_pro: false,
-    name: "Max"
-  }
+    'is_pro': false,
+    name: 'Max',
+  },
 }];
 
 describe('Component: ReviewsForm', () => {
@@ -43,7 +43,7 @@ describe('Component: ReviewsForm', () => {
         <Router history={history}>
           <ReviewForm roomId={roomId}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();

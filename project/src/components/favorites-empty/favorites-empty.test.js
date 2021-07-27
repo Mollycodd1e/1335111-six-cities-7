@@ -31,8 +31,8 @@ describe('Component: FavoritesEmpty', () => {
         <Router history={history}>
           <FavoritesEmpty />
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.getByText(/Nothing yet saved./i)).toBeInTheDocument();
     expect(screen.getByText(/Save properties to narrow down search or plan your future trips./i)).toBeInTheDocument();

@@ -27,7 +27,7 @@ describe('Component: WithAuth', () => {
         <Router history={history}>
           <WithoutAuth />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/Sign in/i)).toBeInTheDocument();

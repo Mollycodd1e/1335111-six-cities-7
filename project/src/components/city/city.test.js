@@ -27,10 +27,10 @@ describe('Component: City', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <City city={city} isActive={true}/>
+          <City city={city} isActive/>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.getByText(/Paris/i)).toBeInTheDocument();
   });
@@ -41,10 +41,10 @@ describe('Component: City', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <City city={city} isActive={true} onClick={jest.fn()}/>
+          <City city={city} isActive onClick={jest.fn()}/>
         </Router>
-      </Provider>
-    )
+      </Provider>,
+    );
 
     expect(screen.getByText(/Paris/i)).toBeInTheDocument();
     userEvent.click(screen.getByText(/Paris/i));
