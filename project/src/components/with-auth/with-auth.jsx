@@ -1,11 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppRoute} from '../../const';
 import {logoutAction} from '../../store/api-action.js';
+import {getUsername} from '../../store/user/selectors';
 
 function WithAuth() {
 
+  const username = useSelector(getUsername);
   const dispatch = useDispatch();
 
   const handleLogoutClick = () => {
@@ -18,7 +20,7 @@ function WithAuth() {
         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
-          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+          <span className="header__user-name user__name">{username}</span>
         </Link>
       </li>
       <li className="header__nav-item">

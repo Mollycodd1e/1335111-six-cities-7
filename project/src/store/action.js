@@ -10,6 +10,7 @@ export const ActionType = {
   CHANGE_FAVORITE_OFFERS: 'favorite/changeFavoriteOffers',
   LOAD_FAVORITE_OFFERS: 'favorite/loadFavoriteOffers',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  SET_USERNAME: 'user/setUsername',
   LOGOUT: 'user/logout',
 };
 
@@ -21,15 +22,15 @@ export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortTyp
   payload: sortType,
 }));
 
-export const loadOffers = createAction( ActionType.LOAD_OFFERS, (offers) => ({
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
 }));
 
-export const changeFavoriteOffers = createAction( ActionType.CHANGE_FAVORITE_OFFERS, (favoriteOffers) => ({
+export const changeFavoriteOffers = createAction(ActionType.CHANGE_FAVORITE_OFFERS, (favoriteOffers) => ({
   payload: favoriteOffers,
 }));
 
-export const loadFavoriteOffers = createAction( ActionType.LOAD_FAVORITE_OFFERS, (favoriteOffers) => ({
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (favoriteOffers) => ({
   payload: favoriteOffers,
 }));
 
@@ -47,6 +48,10 @@ export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (off
 
 export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
+}));
+
+export const setUsername = createAction(ActionType.SET_USERNAME, (email) => ({
+  payload: email,
 }));
 
 export const logout = createAction(ActionType.LOGOUT);

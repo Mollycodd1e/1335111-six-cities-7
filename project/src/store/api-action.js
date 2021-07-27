@@ -1,4 +1,4 @@
-import {loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout, loadFavoriteOffers, changeFavoriteOffers} from './action.js';
+import {loadOffers, loadReviews, loadOffersNearby, loadRoom, requireAuthorization, logout, loadFavoriteOffers, changeFavoriteOffers, setUsername} from './action.js';
 import {AuthorizationStatus, APIRoute} from '../const.js';
 import {adaptOffersToClient, adaptReviewsToClient} from '../adapter.js';
 
@@ -43,13 +43,18 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      api.defaults.headers['x-token'] = data.token;
+    })
+    .then(() => dispatch(setUsername(email)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
 );
 
 export const logoutAction = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
+    .then(() => api.defaults.headers['x-token'] = '')
     .then(() => dispatch(logout()))
 );
 
