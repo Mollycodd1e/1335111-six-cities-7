@@ -126,9 +126,14 @@ describe('Async operations', () => {
 
     return loginLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SET_USERNAME,
+          payload: undefined,
+        });
+
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.AUTH,
         });

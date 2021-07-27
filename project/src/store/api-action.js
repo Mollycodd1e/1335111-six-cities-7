@@ -44,10 +44,10 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
+      dispatch(setUsername(data.email));
       localStorage.setItem('token', data.token);
       api.defaults.headers['x-token'] = data.token;
     })
-    .then(() => dispatch(setUsername(email)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
 );
 

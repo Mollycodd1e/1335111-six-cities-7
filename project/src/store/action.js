@@ -50,8 +50,8 @@ export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATI
   payload: status,
 }));
 
-export const setUsername = createAction(ActionType.SET_USERNAME, (email) => ({
-  payload: email,
+export const setUsername = createAction(ActionType.SET_USERNAME, (username) => ({
+  payload: username,
 }));
 
 export const logout = createAction(ActionType.LOGOUT);
